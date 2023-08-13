@@ -145,14 +145,14 @@ abate_2tri_2023 <- abate |>
                 ) +
   guides(fill = FALSE) +
   annotate(
-    "text", label = "Média de animais abatidos do período",
+    "text", label = "Média do período",
     x = 2, y = 7350000., size = 4, colour = "gray45"
   )
 abate_2tri_2023
 ```
 
 ```{r}
-ggsave("c:/Users/italo/OneDrive/Área de Trabalho/VsCode/ibge/abate_2tri_2023.png",
+ggsave("Images/abate_2tri_2023.png",
     plot = abate_2tri_2023,
     dpi = 1200,
     width = ,
