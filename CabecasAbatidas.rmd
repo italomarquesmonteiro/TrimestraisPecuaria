@@ -1,0 +1,160 @@
+---
+title: "Cabeças Abatidas"
+description: "Número de animais abatidos no 2º trimestre de 2023 (Bovonos, Suínos e Frangos)"
+author script: 
+  - name: "Ítalo Marques-Monteiro"
+    github: https://github.com/italomarquesmonteiro
+    kaggle: https://www.kaggle.com/talomarquesmonteiro
+    linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    lattes: http://lattes.cnpq.br/7174985368517137
+    orcid_id: https://orcid.org/0000-0003-4367-1034
+    affiliation: Smart Data  
+        
+date: "2023-08-11"
+output: html_document
+---
+
+```{r}
+library(conflicted)
+library(tidyverse)
+```
+
+```{r}
+abate_temp <- sidrar::get_sidra(
+    api = "/t/6829/n1/all/v/all/p/last%2010/c12716/115236/c79/all") |>
+    janitor::clean_names("snake") |>
+    dplyr::glimpse()
+#abate_temp|> view()
+```
+
+```{r}
+prev_abate <- abate_temp |>
+    dplyr::select(valor, variavel, trimestre, tipo_de_rebanho) |>
+    tidyr::pivot_wider(names_from = variavel, values_from = valor) |>
+    janitor::clean_names("snake") |>
+    dplyr::glimpse()
+#prev_abate|>tibble::view()
+```
+
+```{r}
+abate <- prev_abate |>
+    dplyr::mutate(
+        periodo = dplyr::case_when(
+            trimestre == "1º trimestre 2021" ~ ("2021-Q1"),
+            trimestre == "2º trimestre 2021" ~ ("2021-Q2"),
+            trimestre == "3º trimestre 2021" ~ ("2021-Q3"),
+            trimestre == "4º trimestre 2021" ~ ("2021-Q4"),
+            trimestre == "1º trimestre 2022" ~ ("2022-Q1"),
+            trimestre == "2º trimestre 2022" ~ ("2022-Q2"),
+            trimestre == "3º trimestre 2022" ~ ("2022-Q3"),
+            trimestre == "4º trimestre 2022" ~ ("2022-Q4"),
+            trimestre == "1º trimestre 2023" ~ ("2023-Q1"),
+            trimestre == "2º trimestre 2023" ~ ("2023-Q2"),
+            TRUE~ trimestre
+        ),
+        periodo = lubridate::yq(periodo),
+        ano = lubridate::year(periodo), .before = trimestre
+    ) |>
+    dplyr::glimpse()
+#abate |>tibble::view()
+```
+
+
+```{r}
+scaleFUN <- function(x) format(round(as.numeric(x), 0), nsmall= 0, big.mark = ",")
+
+# Create line chart theme
+theme_swd_line <-   theme(
+  plot.title = element_text(size = rel(1.75), color = "steelblue"), #steelblue
+  plot.margin = margin(20, 20, 20, 20),
+  text = element_text(family = "Roboto", color = "#979797"),
+  axis.title.x = element_text(hjust = 0, vjust = -0.5),
+  axis.title.y = element_blank(),
+  axis.text.y = element_blank(),
+  line = element_blank(),
+  rect = element_blank()
+)
+```
+
+
+```{r}
+abate_2tri_2023 <- abate |>
+    dplyr::filter(tipo_de_rebanho == "Bovinos") |>
+    #dplyr::summarise(media = mean(animais_abatidos)) |>
+    ggplot2::ggplot(aes(x = trimestre, y = animais_abatidos)) +
+                geom_col(aes(fill = ifelse(
+                    trimestre %in% c(
+                        "2º trimestre 2022",
+                            "1º trimestre 2023",
+                                "2º trimestre 2023"),
+                                    "high", "default")
+                                    )
+                            ) +
+  scale_fill_manual(values = c(high = "steelblue", default = "grey45")) +
+                geom_hline(yintercept = 7232971., lty = 3, color = "gray30") +
+                theme_swd_line  +
+                scale_y_continuous(labels = scales::comma) +
+                labs(title = "Abate de bovinos no Brasil (Número de cabeças)",
+                    subtitle = "# Relatório trimestral de abate
+                    by Ítalo Monteiro
+                    Source: IBGE [open data(2023)]",
+                    x = "Trimestre"
+                    ) +
+                geom_text(
+                    data = abate[abate$ano == 2023 &
+                        abate$trimestre == "2º trimestre 2023" &
+                            abate$tipo_de_rebanho == "Bovinos",],
+                            aes(label = scaleFUN(animais_abatidos)),
+                            hjust = 0.5,
+                            vjust = -0.5,
+                            size = 5,
+                            color = "steelblue",
+                            fontface = "bold") +
+                geom_text(
+                    data = abate[abate$ano == 2023 &
+                        abate$trimestre == "1º trimestre 2023" &
+                            abate$tipo_de_rebanho == "Bovinos",],
+                            aes(label = scaleFUN(animais_abatidos)),
+                            hjust = 0.5,
+                            vjust = -0.8,
+                            size = 4,
+                            color = "gray50",
+                            fontface = "bold") +
+                geom_text(
+                    data = abate[abate$ano == 2022 &
+                        abate$trimestre == "2º trimestre 2022" &
+                            abate$tipo_de_rebanho == "Bovinos",],
+                            aes(label = scaleFUN(animais_abatidos)),
+                            hjust = 0.5,
+                            vjust = -0.5,
+                            size = 4,
+                            color = "gray50",
+                            fontface = "bold") +
+                scale_x_discrete(
+                    limits = c(
+                    "1º trimestre 2021",
+                    "2º trimestre 2021",
+                    "3º trimestre 2021",
+                    "4º trimestre 2021",
+                    "1º trimestre 2022",
+                    "2º trimestre 2022",
+                    "3º trimestre 2022",
+                    "4º trimestre 2022",
+                    "1º trimestre 2023",
+                    "2º trimestre 2023")
+                ) +
+  guides(fill = FALSE) +
+  annotate(
+    "text", label = "Média de animais abatidos do período",
+    x = 2, y = 7350000., size = 4, colour = "gray45"
+  )
+abate_2tri_2023
+```
+
+```{r}
+ggsave("c:/Users/italo/OneDrive/Área de Trabalho/VsCode/ibge/abate_2tri_2023.png",
+    plot = abate_2tri_2023,
+    dpi = 1200,
+    width = ,
+    height = )
+```
