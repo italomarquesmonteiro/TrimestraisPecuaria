@@ -64,7 +64,7 @@ abate |>tibble::view()
 
 
 ```{r}
-scaleFUN <- function(x) format(round(as.numeric(x), 0), nsmall= 0, big.mark = ",")
+scaleFUN <- function(x) format(round(as.numeric(x), 0), nsmall = 0)
 
 # Create line chart theme
 theme_swd_line <-   theme(
@@ -166,26 +166,44 @@ ggsave("Images/carcaca_2tri_2023.png",
 ```{r}
 peso_medio_carcaca_2tri_2023 <- abate |>
     dplyr::filter(tipo_de_rebanho == "Bovinos") |>
-    #dplyr::summarise(media = mean(peso_medio_carcaca)) |>
-    ggplot2::ggplot(aes(x = trimestre, y = peso_medio_carcaca)) +
-                geom_col(aes(fill = ifelse(
-                    trimestre %in% c(
-                        "2º trimestre 2022",
-                            "1º trimestre 2023",
-                                "2º trimestre 2023"),
-                                    "high", "default")
-                                    )
-                            ) +
-  scale_fill_manual(values = c(high = "#346116", default = "grey45")) +
+    dplyr::mutate(
+    cor = case_when(
+      trimestre == "2º trimestre 2023" ~ "goldenrod1",
+      trimestre == "1º trimestre 2023" ~ "mediumpurple1",
+      trimestre == "2º trimestre 2022" ~ "coral2",
+      TRUE ~ "gray70"
+    )
+  ) |>
+    ggplot2::ggplot(aes(x = trimestre, y = peso_medio_carcaca, fill = cor)) +
+                geom_col() +
                 geom_hline(yintercept = 267., lty = 3, color = "gray30") +
                 theme_swd_line  +
                 scale_y_continuous(labels = scales::comma) +
-                labs(title = "Abate de bovinos no Brasil (Peso medio da carcaça - kg)",
+                labs(title =
+                "Abate de bovinos no Brasil (Peso medio da carcaça - kg)",
                     subtitle = "# Relatório trimestral de abate
                     by Ítalo Monteiro
                     Source: IBGE [open data(2023)]",
                     x = "Trimestre"
                     ) +
+                scale_x_discrete(
+                    limits = c(
+                    "1º trimestre 2021",
+                    "2º trimestre 2021",
+                    "3º trimestre 2021",
+                    "4º trimestre 2021",
+                    "1º trimestre 2022",
+                    "2º trimestre 2022",
+                    "3º trimestre 2022",
+                    "4º trimestre 2022",
+                    "1º trimestre 2023",
+                    "2º trimestre 2023")
+                ) +
+                guides(fill = FALSE) +
+                annotate(
+                  "text", label = "Média do período",
+                  x = 1.5, y = 269., size = 4, colour = "gray45"
+                ) +
                 geom_text(
                     data = abate[abate$ano == 2023 &
                         abate$trimestre == "2º trimestre 2023" &
@@ -215,25 +233,7 @@ peso_medio_carcaca_2tri_2023 <- abate |>
                             vjust = -0.5,
                             size = 4,
                             color = "gray50",
-                            fontface = "bold") +
-                scale_x_discrete(
-                    limits = c(
-                    "1º trimestre 2021",
-                    "2º trimestre 2021",
-                    "3º trimestre 2021",
-                    "4º trimestre 2021",
-                    "1º trimestre 2022",
-                    "2º trimestre 2022",
-                    "3º trimestre 2022",
-                    "4º trimestre 2022",
-                    "1º trimestre 2023",
-                    "2º trimestre 2023")
-                ) +
-  guides(fill = FALSE) +
-  annotate(
-    "text", label = "Média do período",
-    x = 1.5, y = 269., size = 4, colour = "gray45"
-  )
+                            fontface = "bold")
 peso_medio_carcaca_2tri_2023
 ```
 
