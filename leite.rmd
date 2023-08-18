@@ -24,7 +24,6 @@ temp_leite <- sidrar::get_sidra(
     api = "/t/6830/n1/all/v/all/p/all/c12716/allxt/d/v282%200,v283%200") |>
     janitor::clean_names("snake") |>
     dplyr::glimpse()
-temp_leite |> tibble::view()
 ```
 
 ```{r}
@@ -38,5 +37,93 @@ leite <- temp_leite |>
         leite_industrializado = quantidade_de_leite_cru_resfriado_ou_nao_industrializado
     ) |>
     dplyr::glimpse()
-#leite |>tibble::view()
+leite |>tibble::view()
 ```
+
+
+```{r}
+leite$trimestre_codigo = zoo::as.yearqtr(
+    leite$trimestre_codigo, format = "%Y%q")
+```
+
+```{r}
+leite <- leite |>
+    dplyr::mutate(
+        data = case_when(
+            referencia_temporal == "No 1º mês" & trimestre == "4º trimestre 2018" ~ "2018-10",
+            referencia_temporal == "No 2º mês" & trimestre == "4º trimestre 2018" ~ "2018-11",
+            referencia_temporal == "No 3º mês" & trimestre == "4º trimestre 2018" ~ "2018-12",
+            referencia_temporal == "No 1º mês" & trimestre == "1º trimestre 2019" ~ "2019-01",
+            referencia_temporal == "No 2º mês" & trimestre == "1º trimestre 2019" ~ "2019-02",
+            referencia_temporal == "No 3º mês" & trimestre == "1º trimestre 2019" ~ "2019-03",
+            referencia_temporal == "No 1º mês" & trimestre == "2º trimestre 2019" ~ "2019-04",
+            referencia_temporal == "No 2º mês" & trimestre == "2º trimestre 2019" ~ "2019-05",
+            referencia_temporal == "No 3º mês" & trimestre == "2º trimestre 2019" ~ "2019-06",
+            referencia_temporal == "No 1º mês" & trimestre == "3º trimestre 2019" ~ "2019-07",
+            referencia_temporal == "No 2º mês" & trimestre == "3º trimestre 2019" ~ "2019-08",
+            referencia_temporal == "No 3º mês" & trimestre == "3º trimestre 2019" ~ "2019-09",
+            referencia_temporal == "No 1º mês" & trimestre == "4º trimestre 2019" ~ "2019-10",
+            referencia_temporal == "No 2º mês" & trimestre == "4º trimestre 2019" ~ "2019-11",
+            referencia_temporal == "No 3º mês" & trimestre == "4º trimestre 2019" ~ "2019-12",
+            referencia_temporal == "No 1º mês" & trimestre == "1º trimestre 2020" ~ "2020-01",
+            referencia_temporal == "No 2º mês" & trimestre == "1º trimestre 2020" ~ "2020-02",
+            referencia_temporal == "No 3º mês" & trimestre == "1º trimestre 2020" ~ "2020-03",
+            referencia_temporal == "No 1º mês" & trimestre == "2º trimestre 2020" ~ "2020-04",
+            referencia_temporal == "No 2º mês" & trimestre == "2º trimestre 2020" ~ "2020-05",
+            referencia_temporal == "No 3º mês" & trimestre == "2º trimestre 2020" ~ "2020-06",
+            referencia_temporal == "No 1º mês" & trimestre == "3º trimestre 2020" ~ "2020-07",
+            referencia_temporal == "No 2º mês" & trimestre == "3º trimestre 2020" ~ "2020-08",
+            referencia_temporal == "No 3º mês" & trimestre == "3º trimestre 2020" ~ "2020-09",
+            referencia_temporal == "No 1º mês" & trimestre == "4º trimestre 2020" ~ "2020-10",
+            referencia_temporal == "No 2º mês" & trimestre == "4º trimestre 2020" ~ "2020-11",
+            referencia_temporal == "No 3º mês" & trimestre == "4º trimestre 2020" ~ "2020-12",
+            referencia_temporal == "No 1º mês" & trimestre == "1º trimestre 2021" ~ "2021-01",
+            referencia_temporal == "No 2º mês" & trimestre == "1º trimestre 2021" ~ "2021-02",
+            referencia_temporal == "No 3º mês" & trimestre == "1º trimestre 2021" ~ "2021-03",
+            referencia_temporal == "No 1º mês" & trimestre == "2º trimestre 2021" ~ "2021-04",
+            referencia_temporal == "No 2º mês" & trimestre == "2º trimestre 2021" ~ "2021-05",
+            referencia_temporal == "No 3º mês" & trimestre == "2º trimestre 2021" ~ "2021-06",
+            referencia_temporal == "No 1º mês" & trimestre == "3º trimestre 2021" ~ "2021-07",
+            referencia_temporal == "No 2º mês" & trimestre == "3º trimestre 2021" ~ "2021-08",
+            referencia_temporal == "No 3º mês" & trimestre == "3º trimestre 2021" ~ "2021-09",
+            referencia_temporal == "No 1º mês" & trimestre == "4º trimestre 2021" ~ "2021-10",
+            referencia_temporal == "No 2º mês" & trimestre == "4º trimestre 2021" ~ "2021-11",
+            referencia_temporal == "No 3º mês" & trimestre == "4º trimestre 2021" ~ "2021-12",
+            referencia_temporal == "No 1º mês" & trimestre == "1º trimestre 2022" ~ "2022-01",
+            referencia_temporal == "No 2º mês" & trimestre == "1º trimestre 2022" ~ "2022-02",
+            referencia_temporal == "No 3º mês" & trimestre == "1º trimestre 2022" ~ "2022-03",
+            referencia_temporal == "No 1º mês" & trimestre == "2º trimestre 2022" ~ "2022-04",
+            referencia_temporal == "No 2º mês" & trimestre == "2º trimestre 2022" ~ "2022-05",
+            referencia_temporal == "No 3º mês" & trimestre == "2º trimestre 2022" ~ "2022-06",
+            referencia_temporal == "No 1º mês" & trimestre == "3º trimestre 2022" ~ "2022-07",
+            referencia_temporal == "No 2º mês" & trimestre == "3º trimestre 2022" ~ "2022-08",
+            referencia_temporal == "No 3º mês" & trimestre == "3º trimestre 2022" ~ "2022-09",
+            referencia_temporal == "No 1º mês" & trimestre == "4º trimestre 2022" ~ "2022-10",
+            referencia_temporal == "No 2º mês" & trimestre == "4º trimestre 2022" ~ "2022-11",
+            referencia_temporal == "No 3º mês" & trimestre == "4º trimestre 2022" ~ "2022-12",
+            referencia_temporal == "No 1º mês" & trimestre == "1º trimestre 2023" ~ "2023-01",
+            referencia_temporal == "No 2º mês" & trimestre == "1º trimestre 2023" ~ "2023-02",
+            referencia_temporal == "No 3º mês" & trimestre == "1º trimestre 2023" ~ "2023-03",
+            TRUE ~ NA
+        ), .before = trimestre
+    )
+```
+
+```{r}
+leite <- leite |>
+    tidyr::separate(data, c("ano", "mes")) |>
+    dplyr::mutate(
+        ano = as.double(ano),
+        mes = as.double(mes)
+    ) |>
+    dplyr::mutate(data = lubridate::make_date(ano, mes), .before = ano)
+```
+
+
+```{r}
+leite |> #ggplotgui::ggplot_shiny()
+    ggplot2::ggplot(aes(x = data)) +
+        geom_line(aes(y = leite_adquirido, color = "steelblue")) +
+        geom_line(aes(y = leite_industrializado, color = "#636668")) +
+        geom_smooth(aes(y = leite_adquirido), se = FALSE, method = "loess")
+``` 

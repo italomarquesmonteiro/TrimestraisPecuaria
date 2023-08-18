@@ -29,36 +29,36 @@ abate_temp <- sidrar::get_sidra(
 
 ```{r}
 prev_abate <- abate_temp |>
-    dplyr::select(valor, variavel, trimestre, tipo_de_rebanho) |>
+    dplyr::select(
+        valor, variavel, trimestre, trimestre_codigo, tipo_de_rebanho) |>
     tidyr::pivot_wider(names_from = variavel, values_from = valor) |>
     janitor::clean_names("snake") |>
     dplyr::glimpse()
-#prev_abate|>tibble::view()
+
+prev_abate$trimestre_codigo = zoo::as.yearqtr(
+    prev_abate$trimestre_codigo, format = "%Y%q")
 ```
 
 ```{r}
 abate <- prev_abate |>
+    tidyr::separate(data, c("ano", "mes")) |>
     dplyr::mutate(
-        periodo = dplyr::case_when(
-            trimestre == "1º trimestre 2021" ~ ("2021-Q1"),
-            trimestre == "2º trimestre 2021" ~ ("2021-Q2"),
-            trimestre == "3º trimestre 2021" ~ ("2021-Q3"),
-            trimestre == "4º trimestre 2021" ~ ("2021-Q4"),
-            trimestre == "1º trimestre 2022" ~ ("2022-Q1"),
-            trimestre == "2º trimestre 2022" ~ ("2022-Q2"),
-            trimestre == "3º trimestre 2022" ~ ("2022-Q3"),
-            trimestre == "4º trimestre 2022" ~ ("2022-Q4"),
-            trimestre == "1º trimestre 2023" ~ ("2023-Q1"),
-            trimestre == "2º trimestre 2023" ~ ("2023-Q2"),
-            TRUE~ trimestre
-        ),
-        periodo = lubridate::yq(periodo),
-        ano = lubridate::year(periodo), .before = trimestre
+        ano = as.double(ano),
+        mes = as.double(mes)
     ) |>
+    dplyr::mutate(data = lubridate::make_date(ano, mes), .before = ano)|>
     dplyr::glimpse()
-#abate |>tibble::view()
+abate |> tibble::view()
 ```
 
+
+```{r}
+abate |>
+    dplyr::filter(
+        tipo_de_rebanho == "Bovinos" & ano == 2023) |>
+    dplyr::group_by(trimestre) |>
+    dplyr::summarise(abate = sum(animais_abatidos))
+```
 
 ```{r}
 scaleFUN <- function(x) format(round(as.numeric(x), 0), nsmall= 0, big.mark = ",")
