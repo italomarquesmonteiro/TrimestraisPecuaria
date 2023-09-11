@@ -24,7 +24,7 @@ abate_temp <- sidrar::get_sidra(
     api = "/t/6829/n1/all/v/all/p/last%2010/c12716/115236/c79/all") |>
     janitor::clean_names("snake") |>
     dplyr::glimpse()
-#abate_temp|> view()
+abate_temp|> view()
 ```
 
 ```{r}
@@ -37,6 +37,10 @@ prev_abate <- abate_temp |>
 
 prev_abate$trimestre_codigo = zoo::as.yearqtr(
     prev_abate$trimestre_codigo, format = "%Y%q")
+
+prev_abate |>
+    dplyr::glimpse()
+    tibble::view()
 ```
 
 ```{r}
