@@ -74,7 +74,7 @@ part_ufs_abt_br <- test1 |>
              vjust = 0.5, size = 3.5, hjust = 0.01) +
         theme_void() +
         labs(
-            title = "Participação no abate bovino [Bos taurus] no Brasil",
+            title = "Participação UFs no abate de bovinos",
             subtitle = "2º trimestre de 2023",
             caption = "by Ítalo Monteiro
         Fonte: IBGE [2º Trimestre(2023)]") +
@@ -135,14 +135,14 @@ prop_vaca_cor <- prop_vaca |>
 
 perc_abate_vaca <- prop_vaca_cor |>
     ggplot(aes(x = perc, y = reorder(uf, perc), fill = color)) +
-        geom_col()+
+        geom_col() +
         scale_fill_identity(guide = "none") +
         geom_text(mapping = aes(label = scales::percent(perc, accuracy = 0.1)),
              position = position_dodge(0.9), 
              vjust = 0.5, size = 3.5, hjust = 0.01) +
         theme_void() +
         labs(
-            title = "Participação de vacas no abate",
+            title = "Participação UFs no abate de vacas",
             subtitle = "2º trimestre de 2023",
             caption = "by Ítalo Monteiro
         Fonte: IBGE [2º Trimestre(2023)]"
@@ -162,7 +162,7 @@ perc_abate_vaca <- prop_vaca_cor |>
             plot.background = element_rect(fill = "white")
             )
 perc_abate_vaca
-ggsave("Images/perc_abate_boi.png", plot = perc_abate_boi, dpi = 600)
+ggsave("Images/perc_abate_vaca.png", plot = perc_abate_vaca, dpi = 600)
 ```
 
 
@@ -209,7 +209,7 @@ perc_abt_boi <- prop_boi_cor |>
              vjust = 0.5, size = 3.5, hjust = 0.01) +
         theme_void() +
         labs(
-            title = "Participação de bois abate",
+            title = "Participação UFs no abate de bois",
             subtitle = "2º trimestre de 2023",
             caption = "by Ítalo Monteiro
         Fonte: IBGE [2º Trimestre(2023)]"
@@ -276,7 +276,7 @@ perc_abt_novilha <- prop_novilha_cor |>
              vjust = 0.5, size = 3.5, hjust = 0.01) +
         theme_void() +
         labs(
-            title = "Participação de novilhas no abate",
+            title = "Participação UFs no abate de novilhas",
             subtitle = "2º trimestre de 2023",
             caption = "by Ítalo Monteiro
         Fonte: IBGE [2º Trimestre(2023)]"
@@ -341,7 +341,7 @@ perc_abt_novilho <- prop_novilho_cor |>
              vjust = 0.5, size = 3.5, hjust = 0.01) +
         theme_void() +
         labs(
-            title = "Participação de novilhos no abate",
+            title = "Participação UFs no abate de novilhos",
             subtitle = "2º trimestre de 2023",
             caption = "by Ítalo Monteiro
         Fonte: IBGE [2º Trimestre(2023)]"
@@ -358,8 +358,7 @@ perc_abt_novilho <- prop_novilho_cor |>
                 size = 14, hjust = 1, family = "Fira Sans"),
             plot.margin = margin(rep(15, 4)),
             panel.background = element_rect(fill = "white", color = "white"),
-            plot.background = element_rect(fill = "white")
-            )
+            plot.background = element_rect(fill = "white")) 
 perc_abt_novilho
 ggsave("Images/perc_abt_novilho.png", plot = perc_abt_novilho, dpi = 600)
 ```
@@ -385,22 +384,22 @@ mapa_abt_novilho <- br |>
             fill = "gray70",
             color = "gray30",
             size = .15,
-            show.legend = F) +
-        geom_sf(data = rs,
+            show.legend = FALSE) +
+        geom_sf(data = mt,
             fill = "goldenrod1",
             color = "gray30",
             size = .15,
-            show.legend = F) +
-        geom_sf(data = mg,
+            show.legend = FALSE) +
+        geom_sf(data = ms,
             fill = "mediumpurple1",
             color = "gray30",
             size = .15,
-            show.legend = F) +
-        geom_sf(data = ms,
+            show.legend = FALSE) +
+        geom_sf(data = sp,
             fill = "coral2",
             color = "gray30",
             size = .15,
-            show.legend = F) +
+            show.legend = FALSE) +
         theme_void() +
         theme(
             panel.background = element_blank(),
