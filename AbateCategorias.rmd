@@ -370,6 +370,15 @@ mapas
 br <- geobr::read_state(code_state = "all", year = 2020) |>
     dplyr::glimpse()
 
+
+rs <- br |> dplyr::filter(abbrev_state == "RS")
+ms <- br |> dplyr::filter(abbrev_state == "MS")
+go <- br |> dplyr::filter(abbrev_state == "GO")
+sp <- br |> dplyr::filter(abbrev_state == "SP")
+mt <- br |> dplyr::filter(abbrev_state == "MT")
+pa <- br |> dplyr::filter(abbrev_state == "PA")
+mg <- br |> dplyr::filter(abbrev_state == "MG")
+
 mapa_abt_novilho <- br |>
     ggplot2::ggplot() +
         geom_sf(
@@ -398,13 +407,5 @@ mapa_abt_novilho <- br |>
             plot.background = element_blank()
         )
 mapa_abt_novilho
-ggsave("Images/mapa_abt_novilho.svg", plot = mapa_abt_novilho, dpi = 600)
-```
-
-```{r}
-rs <- br |> dplyr::filter(abbrev_state == "RS")
-ms <- br |> dplyr::filter(abbrev_state == "MS")
-go <- br |> dplyr::filter(abbrev_state == "GO")
-sp <- br |> dplyr::filter(abbrev_state == "SP")
-mt <- br |> dplyr::filter(abbrev_state == "MT")
+ggsave("Images/mapa_abt_novilho.png", plot = mapa_abt_novilho, dpi = 600)
 ```
