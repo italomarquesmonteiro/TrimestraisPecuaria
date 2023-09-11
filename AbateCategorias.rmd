@@ -20,6 +20,9 @@ Informações:
 [Comunidado](https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/37828-cresce-o-abate-de-bovinos-e-frangos-e-cai-o-de-suinos-no-2-tri-de-2023)
 [Dados](https://sidra.ibge.gov.br/tabela/1092)
 
+```{r}
+library(tidyverse)
+```
 
 ```{r}
 ufs  <- sidrar::get_sidra(
