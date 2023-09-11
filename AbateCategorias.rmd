@@ -91,7 +91,8 @@ part_ufs_abt_br <- test1 |>
             plot.background = element_rect(fill = "white")
         )
 part_ufs_abt_br
-#ggsave("Downloads/part_ufs_abt_br.png",plot = part_ufs_abt_br, dpi = 600)
+
+ggsave("Images/part_ufs_abt_br.png", plot = part_ufs_abt_br, dpi = 600)
 ```
 
 
@@ -158,7 +159,7 @@ perc_abate_vaca <- prop_vaca_cor |>
             plot.background = element_rect(fill = "white")
             )
 perc_abate_vaca
-#ggsave("Downloads/perc_abate_boi.png",plot = perc_abate_boi, dpi = 600)
+ggsave("Images/perc_abate_boi.png", plot = perc_abate_boi, dpi = 600)
 ```
 
 
@@ -225,7 +226,7 @@ perc_abt_boi <- prop_boi_cor |>
             plot.background = element_rect(fill = "white")
             )
 perc_abt_boi
-#ggsave("Downloads/perc_abt_boi.png",plot = perc_abt_boi, dpi = 600)
+ggsave("Images/perc_abt_boi.png", plot = perc_abt_boi, dpi = 600)
 ```
 
 
@@ -292,7 +293,7 @@ perc_abt_novilha <- prop_novilha_cor |>
             plot.background = element_rect(fill = "white")
             )
 perc_abt_novilha
-#ggsave("Downloads/perc_abt_novilha.png",plot = perc_abt_novilha, dpi = 600)
+ggsave("Images/perc_abt_novilha.png", plot = perc_abt_novilha, dpi = 600)
 ```
 
 
@@ -357,7 +358,7 @@ perc_abt_novilho <- prop_novilho_cor |>
             plot.background = element_rect(fill = "white")
             )
 perc_abt_novilho
-#ggsave("Downloads/perc_abt_novilho.png",plot = perc_abt_novilho, dpi = 600)
+ggsave("Images/perc_abt_novilho.png", plot = perc_abt_novilho, dpi = 600)
 ```
 
 
@@ -394,7 +395,7 @@ mapa_abt_novilho <- br |>
             plot.background = element_blank()
         )
 mapa_abt_novilho
-ggsave("Downloads/mapa_abt_novilho.svg",plot = mapa_abt_novilho, dpi = 600)
+ggsave("Images/mapa_abt_novilho.svg", plot = mapa_abt_novilho, dpi = 600)
 ```
 
 ```{r}
