@@ -1,0 +1,406 @@
+---
+title: "Abate bovino no Rio Grande do Sul 2º trimestre "
+description: "Quantitativo por categoria atualizado em  06 de setembro de 2023 pelo IBGE"
+author: 
+    - name: "Ítalo Marques-Monteiro"
+    - email: "italo.marques.monteiro@outlook.com"
+    - github: https://github.com/italomarquesmonteiro
+    - kaggle: https://www.kaggle.com/talomarquesmonteiro
+    - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    - lattes: http://lattes.cnpq.br/7174985368517137
+    - orcid_id: https://orcid.org/0000-0003-4367-1034
+    - affiliation: Smart Data  
+        
+date: "2023-09-11"
+output: html_document
+---
+
+Informações:
+[IBGE](https://www.ibge.gov.br/)
+[Comunidado](https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/37828-cresce-o-abate-de-bovinos-e-frangos-e-cai-o-de-suinos-no-2-tri-de-2023)
+[Dados](https://sidra.ibge.gov.br/tabela/1092)
+
+
+```{r}
+ufs  <- sidrar::get_sidra(
+    api = "/t/1092/n3/all/v/284/p/last%201/c12716/115236/c18/55,56,111734,111735/c12529/118225") |>
+    janitor::clean_names("snake") |>
+    dplyr::select(
+        valor, tipo_de_rebanho_bovino, unidade_da_federacao,
+            categoria = tipo_de_rebanho_bovino,
+            uf = unidade_da_federacao
+    ) |>
+    dplyr::mutate(uf = as.factor(uf)) |>
+    dplyr::glimpse()
+```
+
+
+
+
+Participação das UFs no abate bovino do Brasil
+```{r}
+per_abt_total <- ufs |>
+    dplyr::group_by(uf) |>
+    dplyr::summarize(
+        total = sum(valor, na.rm = TRUE),
+        percent = total / 8152514) |>
+    dplyr::mutate(perc2 = scales::percent(total / 8152514, accuracy = .1, trim = FALSE)) |>
+    dplyr::arrange(desc(perc2))
+per_abt_total |>
+    tibble::view()
+
+
+test1 <- per_abt_total |>
+    dplyr::mutate(
+        color = case_when(
+          row_number() == 1 ~ "goldenrod1",
+          row_number() == 2 ~ "mediumpurple1",
+          row_number() == 3 ~ "coral2",
+          ## all others should be gray
+          TRUE ~ "gray70"
+        )
+  )
+
+
+part_ufs_abt_br <- test1 |>
+    ggplot(aes(x = percent, y = reorder(uf, percent), fill = color)) +
+        geom_col()+
+        scale_fill_identity(guide = "none") +
+        geom_text(mapping = aes(label = scales::percent(percent, accuracy = 0.1)),
+             position = position_dodge(0.9), 
+             vjust = 0.5, size = 3.5, hjust = 0.01) +
+        theme_void() +
+        labs(
+            title = "Participação no abate bovino [Bos taurus] no Brasil",
+            subtitle = "2º trimestre de 2023",
+            caption = "by Ítalo Monteiro
+        Fonte: IBGE [2º Trimestre(2023)]") +
+        theme(
+            plot.title = element_text(
+                face = "italic", size = 25, hjust = 0.1),
+            plot.subtitle = element_text(
+                family = "italic", size = 15, color = "gray50", hjust = 0.1),
+            plot.caption = element_text(
+                face = "italic", size = 12, color = "gray50"),
+            axis.text.y = element_text(
+                size = 14, hjust = 1, family = "Fira Sans"),
+            plot.margin = margin(
+                rep(15, 4)),
+            panel.background = element_rect(
+                fill = "white", color = "white"),
+            plot.background = element_rect(fill = "white")
+        )
+part_ufs_abt_br
+#ggsave("Downloads/part_ufs_abt_br.png",plot = part_ufs_abt_br, dpi = 600)
+```
+
+
+
+Participação de Vacas no abate nacional
+```{r}
+ufs_vacas <- ufs |>
+    dplyr::filter(categoria == "Vacas") |>
+    dplyr::mutate(uf = as.factor(uf)) |>
+    dplyr::glimpse()
+
+
+ufs_vacas |>
+    dplyr::summarize(
+        total = sum(valor, na.rm = TRUE))
+
+
+prop_vaca <- ufs_vacas |>
+    dplyr::group_by(uf) |>
+    dplyr::summarize(
+        total = sum(valor, na.rm = TRUE),
+        perc = total / 2490750) |>
+    dplyr::mutate(perc2 = scales::percent(total / 2490750, accuracy = .1, trim = FALSE))
+
+
+prop_vaca_cor <- prop_vaca |>
+    dplyr::arrange(desc(perc)) |>
+  mutate(
+    color = case_when(
+      row_number() == 1 ~ "goldenrod1",
+      row_number() == 2 ~ "mediumpurple1",
+      row_number() == 3 ~ "coral2",
+      ## all others should be gray
+      TRUE ~ "gray70"
+    )
+  )
+
+perc_abate_vaca <- prop_vaca_cor |>
+    ggplot(aes(x = perc, y = reorder(uf, perc), fill = color)) +
+        geom_col()+
+        scale_fill_identity(guide = "none") +
+        geom_text(mapping = aes(label = scales::percent(perc, accuracy = 0.1)),
+             position = position_dodge(0.9), 
+             vjust = 0.5, size = 3.5, hjust = 0.01) +
+        theme_void() +
+        labs(
+            title = "Participação de vacas no abate",
+            subtitle = "2º trimestre de 2023",
+            caption = "by Ítalo Monteiro
+        Fonte: IBGE [2º Trimestre(2023)]"
+        ) +
+        theme(
+            plot.title = element_text(
+                face = "italic", size = 25, hjust = 0.1),#, margin = margin(b = 20)
+            plot.subtitle = element_text(
+                family = "italic", size = 15, color = "gray50", hjust = 0.1),
+            #text = element_text(family = "Roboto", color = "#979797"),
+            plot.caption = element_text(
+                face = "italic", size = 12, color = "gray50"),
+            axis.text.y = element_text(
+                size = 14, hjust = 1, family = "Fira Sans"),
+            plot.margin = margin(rep(15, 4)),
+            panel.background = element_rect(fill = "white", color = "white"),
+            plot.background = element_rect(fill = "white")
+            )
+perc_abate_vaca
+#ggsave("Downloads/perc_abate_boi.png",plot = perc_abate_boi, dpi = 600)
+```
+
+
+
+Participação de bois no abate nacional
+
+```{r}
+ufs_boi <- ufs |>
+    dplyr::filter(categoria == "Bois") |>
+    dplyr::mutate(uf = as.factor(uf)) |>
+    dplyr::glimpse()
+
+ufs_boi |>
+    dplyr::summarize(
+        total_boi = sum(valor, na.rm = TRUE))
+
+
+prop_boi <- ufs_boi |>
+    dplyr::group_by(uf) |>
+    dplyr::summarize(
+        total_boi = sum(valor, na.rm = TRUE),
+        perc_boi = total_boi / 4313472) |>
+    dplyr::mutate(percentual_boi = scales::percent(total_boi / 4313472, accuracy = .1, trim = FALSE))
+
+prop_boi_cor <- prop_boi |>
+    dplyr::arrange(desc(perc_boi)) |>
+  mutate(
+    color = case_when(
+      row_number() == 1 ~ "goldenrod1",
+      row_number() == 2 ~ "mediumpurple1",
+      row_number() == 3 ~ "coral2",
+      ## all others should be gray
+      TRUE ~ "gray70"
+    )
+  )
+
+
+perc_abt_boi <- prop_boi_cor |>
+    ggplot(aes(x = perc_boi, y = reorder(uf, perc_boi), fill = color)) +
+        geom_col()+
+        scale_fill_identity(guide = "none") +
+        geom_text(mapping = aes(label = scales::percent(perc_boi, accuracy = 0.1)),
+             position = position_dodge(0.9), 
+             vjust = 0.5, size = 3.5, hjust = 0.01) +
+        theme_void() +
+        labs(
+            title = "Participação de bois abate",
+            subtitle = "2º trimestre de 2023",
+            caption = "by Ítalo Monteiro
+        Fonte: IBGE [2º Trimestre(2023)]"
+        ) +
+        theme(
+            plot.title = element_text(
+                face = "italic", size = 25, hjust = 0.1),#, margin = margin(b = 20)
+            plot.subtitle = element_text(
+                family = "italic", size = 15, color = "gray50", hjust = 0.1),
+            #text = element_text(family = "Roboto", color = "#979797"),
+            plot.caption = element_text(
+                face = "italic", size = 12, color = "gray50"),
+            axis.text.y = element_text(
+                size = 14, hjust = 1, family = "Fira Sans"),
+            plot.margin = margin(rep(15, 4)),
+            panel.background = element_rect(fill = "white", color = "white"),
+            plot.background = element_rect(fill = "white")
+            )
+perc_abt_boi
+#ggsave("Downloads/perc_abt_boi.png",plot = perc_abt_boi, dpi = 600)
+```
+
+
+
+
+Participação de novilhas no abate nacional
+
+```{r}
+ufs_novilha <- ufs |>
+    dplyr::filter(categoria == "Novilhas") |>
+    dplyr::mutate(uf = as.factor(uf)) |>
+    dplyr::glimpse()
+
+ufs_novilha |>
+    dplyr::summarize(
+        total_novilha = sum(valor, na.rm = TRUE))
+
+
+prop_novilha <- ufs_novilha |>
+    dplyr::group_by(uf) |>
+    dplyr::summarize(
+        total_novilha = sum(valor, na.rm = TRUE),
+        perc_novilha = total_novilha / 975381) |>
+    dplyr::mutate(percentual_novilha = scales::percent(total_novilha / 975381, accuracy = .1, trim = FALSE))
+
+prop_novilha_cor <- prop_novilha |>
+    dplyr::arrange(desc(perc_novilha)) |>
+  mutate(
+    color = case_when(
+      row_number() == 1 ~ "goldenrod1",
+      row_number() == 2 ~ "mediumpurple1",
+      row_number() == 3 ~ "coral2",
+      TRUE ~ "gray70"
+    )
+  )
+
+
+perc_abt_novilha <- prop_novilha_cor |>
+    ggplot(aes(x = perc_novilha, y = reorder(uf, perc_novilha), fill = color)) +
+        geom_col()+
+        scale_fill_identity(guide = "none") +
+        geom_text(mapping = aes(label = scales::percent(perc_novilha, accuracy = 0.1)),
+             position = position_dodge(0.9), 
+             vjust = 0.5, size = 3.5, hjust = 0.01) +
+        theme_void() +
+        labs(
+            title = "Participação de novilhas no abate",
+            subtitle = "2º trimestre de 2023",
+            caption = "by Ítalo Monteiro
+        Fonte: IBGE [2º Trimestre(2023)]"
+        ) +
+        theme(
+            plot.title = element_text(
+                face = "italic", size = 25, hjust = 0.1),#, margin = margin(b = 20)
+            plot.subtitle = element_text(
+                family = "italic", size = 15, color = "gray50", hjust = 0.1),
+            #text = element_text(family = "Roboto", color = "#979797"),
+            plot.caption = element_text(
+                face = "italic", size = 12, color = "gray50"),
+            axis.text.y = element_text(
+                size = 14, hjust = 1, family = "Fira Sans"),
+            plot.margin = margin(rep(15, 4)),
+            panel.background = element_rect(fill = "white", color = "white"),
+            plot.background = element_rect(fill = "white")
+            )
+perc_abt_novilha
+#ggsave("Downloads/perc_abt_novilha.png",plot = perc_abt_novilha, dpi = 600)
+```
+
+
+Participação de novilhos no abate nacional
+
+```{r}
+ufs_novilho <- ufs |>
+    dplyr::filter(categoria == "Novilhos") |>
+    dplyr::mutate(uf = as.factor(uf)) |>
+    dplyr::glimpse()
+
+ufs_novilho |>
+    dplyr::summarize(
+        total_novilho = sum(valor, na.rm = TRUE))
+
+
+prop_novilho <- ufs_novilho |>
+    dplyr::group_by(uf) |>
+    dplyr::summarize(
+        total_novilho = sum(valor, na.rm = TRUE),
+        perc_novilho = total_novilho / 372911) |>
+    dplyr::mutate(percentual_novilho = scales::percent(total_novilho / 372911, accuracy = .1, trim = FALSE))
+
+prop_novilho_cor <- prop_novilho |>
+    dplyr::arrange(desc(perc_novilho)) |>
+  mutate(
+    color = case_when(
+      row_number() == 1 ~ "goldenrod1",
+      row_number() == 2 ~ "mediumpurple1",
+      row_number() == 3 ~ "coral2",
+      TRUE ~ "gray70"
+    )
+  )
+
+
+perc_abt_novilho <- prop_novilho_cor |>
+    ggplot(aes(x = perc_novilho, y = reorder(uf, perc_novilho), fill = color)) +
+        geom_col()+
+        scale_fill_identity(guide = "none") +
+        geom_text(mapping = aes(label = scales::percent(perc_novilho, accuracy = 0.1)),
+             position = position_dodge(0.9), 
+             vjust = 0.5, size = 3.5, hjust = 0.01) +
+        theme_void() +
+        labs(
+            title = "Participação de novilhos no abate",
+            subtitle = "2º trimestre de 2023",
+            caption = "by Ítalo Monteiro
+        Fonte: IBGE [2º Trimestre(2023)]"
+        ) +
+        theme(
+            plot.title = element_text(
+                face = "italic", size = 25, hjust = 0.1),#, margin = margin(b = 20)
+            plot.subtitle = element_text(
+                family = "italic", size = 15, color = "gray50", hjust = 0.1),
+            #text = element_text(family = "Roboto", color = "#979797"),
+            plot.caption = element_text(
+                face = "italic", size = 12, color = "gray50"),
+            axis.text.y = element_text(
+                size = 14, hjust = 1, family = "Fira Sans"),
+            plot.margin = margin(rep(15, 4)),
+            panel.background = element_rect(fill = "white", color = "white"),
+            plot.background = element_rect(fill = "white")
+            )
+perc_abt_novilho
+#ggsave("Downloads/perc_abt_novilho.png",plot = perc_abt_novilho, dpi = 600)
+```
+
+
+mapas 
+```{r}
+br <- geobr::read_state(code_state = "all", year = 2020) |>
+    dplyr::glimpse()
+
+mapa_abt_novilho <- br |>
+    ggplot2::ggplot() +
+        geom_sf(
+            fill = "gray70",
+            color = "gray30",
+            size = .15,
+            show.legend = F) +
+        geom_sf(data = rs,
+            fill = "goldenrod1",
+            color = "gray30",
+            size = .15,
+            show.legend = F) +
+        geom_sf(data = mg,
+            fill = "mediumpurple1",
+            color = "gray30",
+            size = .15,
+            show.legend = F) +
+        geom_sf(data = ms,
+            fill = "coral2",
+            color = "gray30",
+            size = .15,
+            show.legend = F) +
+        theme_void() +
+        theme(
+            panel.background = element_blank(),
+            plot.background = element_blank()
+        )
+mapa_abt_novilho
+ggsave("Downloads/mapa_abt_novilho.svg",plot = mapa_abt_novilho, dpi = 600)
+```
+
+```{r}
+rs <- br |> dplyr::filter(abbrev_state == "RS")
+ms <- br |> dplyr::filter(abbrev_state == "MS")
+go <- br |> dplyr::filter(abbrev_state == "GO")
+sp <- br |> dplyr::filter(abbrev_state == "SP")
+mt <- br |> dplyr::filter(abbrev_state == "MT")
+```
