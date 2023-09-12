@@ -386,6 +386,7 @@ mapa_abt_novilho <- br |>
             size = .15,
             show.legend = FALSE) +
         geom_sf(data = mt,
+        
             fill = "goldenrod1",
             color = "gray30",
             size = .15,
