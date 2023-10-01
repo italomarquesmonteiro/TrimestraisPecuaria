@@ -95,7 +95,7 @@ part_ufs_abt_br <- test1 |>
         )
 part_ufs_abt_br
 
-ggsave("Images/part_ufs_abt_br.png", plot = part_ufs_abt_br, dpi = 600)
+#ggsave("Images/part_ufs_abt_br.png", plot = part_ufs_abt_br, dpi = 600)
 ```
 
 

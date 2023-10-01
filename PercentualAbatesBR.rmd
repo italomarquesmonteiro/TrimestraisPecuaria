@@ -1,0 +1,145 @@
+---
+title: "Percentual de abate por categoria entre 1997 a 2023"
+description: "Quantitativo por categoria atualizado em  06 de setembro de 2023 pelo IBGE"
+author: 
+    - name: "Ítalo Marques-Monteiro"
+    - email: "italo.marques.monteiro@outlook.com"
+    - github: https://github.com/italomarquesmonteiro
+    - kaggle: https://www.kaggle.com/talomarquesmonteiro
+    - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    - lattes: http://lattes.cnpq.br/7174985368517137
+    - orcid_id: https://orcid.org/0000-0003-4367-1034
+    - affiliation: Smart Data  
+        
+date: "2023-09-11"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+```
+
+
+
+```{r}
+df <- sidrar::get_sidra(
+    api = "/t/1092/n1/all/v/1000284/p/all/c12716/115236/c18/55,56,111734,111735/c12529/118225/d/v1000284%202") |>
+    janitor::clean_names("snake") |>
+    dplyr::select(
+        cabecas = valor,
+        data_trimestre = trimestre_codigo,
+        trimestre,
+        categoria = tipo_de_rebanho_bovino) |>
+    dplyr::glimpse()
+```
+
+```{r}
+abates <- df |>
+    dplyr::mutate(
+        sexo = case_when(
+            categoria == "Bois" ~ "Macho",
+            categoria == "Novilhos" ~ "Macho",
+            categoria == "Vacas" ~ "Fêmea",
+            categoria == "Novilhas" ~ "Fêmea",
+            TRUE~ categoria
+        ),
+        sexo = as.factor(sexo),
+        categoria = as.factor(categoria),
+        data_trimestre = lubridate::yq(data_trimestre),
+        ano = lubridate::year(data_trimestre)
+    ) |>
+    dplyr::glimpse()
+```
+
+```{r}
+percentual_abates <- abates |>
+    #dplyr::filter(ano == 2023) |>
+    #dplyr::select(trimestre, cabecas) |>
+    dplyr::group_by(categoria, ano, trimestre, data_trimestre, sexo) |>
+    dplyr::summarise(
+        perc_categoria = sum(cabecas, na.rm = TRUE))
+```
+
+
+```{r}
+percentual_abates |>
+    dplyr::filter(rebanho == "Bois") |>
+    dplyr::arrange(desc(perc_categoria))
+```
+                   % ABATE DE VACAS AO LONGO DOS ANO 
+rebanho   ano trimestre         trimestre_codigo sexo  perc_categoria
+   <fct>   <dbl> <chr>             <date>           <fct>          <dbl>
+ 1 Vacas    2006 1º trimestre 2006 2006-01-01       Fêmea           41.0
+ 2 Vacas    2005 1º trimestre 2005 2005-01-01       Fêmea           39.4
+ 3 Vacas    2008 1º trimestre 2008 2008-01-01       Fêmea           39.1
+ 4 Vacas    2006 2º trimestre 2006 2006-04-01       Fêmea           39.0
+ 5 Vacas    2007 1º trimestre 2007 2007-01-01       Fêmea           38.7
+ 6 Vacas    2012 1º trimestre 2012 2012-01-01       Fêmea           38.1
+ 7 Vacas    2005 2º trimestre 2005 2005-04-01       Fêmea           38.0
+ 8 Vacas    2013 1º trimestre 2013 2013-01-01       Fêmea           37.4
+ 9 Vacas    2007 2º trimestre 2007 2007-04-01       Fêmea           37.2
+10 Vacas    2014 1º trimestre 2014 2014-01-01       Fêmea           36.6
+
+
+                 % ABATE DE BOIS AO LONGO DOS ANO 
+rebanho   ano trimestre         trimestre_codigo sexo  perc_categoria
+   <fct>   <dbl> <chr>             <date>           <fct>          <dbl>
+ 1 Bois     2021 4º trimestre 2021 2021-10-01       Macho           64.6
+ 2 Bois     2020 4º trimestre 2020 2020-10-01       Macho           63.9
+ 3 Bois     2021 3º trimestre 2021 2021-07-01       Macho           63.1
+ 4 Bois     2020 3º trimestre 2020 2020-07-01       Macho           61.0
+ 5 Bois     1998 3º trimestre 1998 1998-07-01       Macho           60.6
+ 6 Bois     2022 3º trimestre 2022 2022-07-01       Macho           60  
+ 7 Bois     2002 2º trimestre 2002 2002-04-01       Macho           59.9
+ 8 Bois     2021 2º trimestre 2021 2021-04-01       Macho           59.9
+ 9 Bois     2022 4º trimestre 2022 2022-10-01       Macho           59.6
+10 Bois     2002 3º trimestre 2002 2002-07-01       Macho           59.4
+
+                 % ABATE DE NOVILHOS AO LONGO DOS ANO 
+rebanho    ano trimestre         trimestre_codigo sexo  perc_categoria
+   <fct>    <dbl> <chr>             <date>           <fct>          <dbl>
+ 1 Novilhos  2000 4º trimestre 2000 2000-10-01       Macho           16.4
+ 2 Novilhos  2001 2º trimestre 2001 2001-04-01       Macho           16.0
+ 3 Novilhos  2001 4º trimestre 2001 2001-10-01       Macho           15.9
+ 4 Novilhos  2001 3º trimestre 2001 2001-07-01       Macho           15.8
+ 5 Novilhos  2001 1º trimestre 2001 2001-01-01       Macho           14.7
+ 6 Novilhos  1997 4º trimestre 1997 1997-10-01       Macho           14.6
+ 7 Novilhos  1997 3º trimestre 1997 1997-07-01       Macho           13.9
+ 8 Novilhos  1998 4º trimestre 1998 1998-10-01       Macho           13.8
+ 9 Novilhos  2002 1º trimestre 2002 2002-01-01       Macho           13.5
+10 Novilhos  2002 3º trimestre 2002 2002-07-01       Macho           13.4
+                 
+                 % ABATE DE NOVILHAS AO LONGO DOS ANO
+rebanho    ano trimestre         trimestre_codigo sexo  perc_categoria
+   <fct>    <dbl> <chr>             <date>           <fct>          <dbl>
+ 1 Novilhas  2023 2º trimestre 2023 2023-04-01       Fêmea           13.9
+ 2 Novilhas  2019 1º trimestre 2019 2019-01-01       Fêmea           12.5
+ 3 Novilhas  2019 2º trimestre 2019 2019-04-01       Fêmea           12.5
+ 4 Novilhas  2020 1º trimestre 2020 2020-01-01       Fêmea           12.1
+ 5 Novilhas  2023 1º trimestre 2023 2023-01-01       Fêmea           12.0
+ 6 Novilhas  2020 2º trimestre 2020 2020-04-01       Fêmea           11.8
+ 7 Novilhas  2018 2º trimestre 2018 2018-04-01       Fêmea           11.2
+ 8 Novilhas  2022 2º trimestre 2022 2022-04-01       Fêmea           11.1
+ 9 Novilhas  2022 1º trimestre 2022 2022-01-01       Fêmea           10.9
+10 Novilhas  2018 1º trimestre 2018 2018-01-01       Fêmea           10.8 
+
+
+```{r}
+percentual_abates |>
+    dplyr::filter(ano > 2015) |>
+    ungroup() |>
+    ggplot(
+        mapping = aes(
+            x = trimestre,
+                y = ifelse(
+                    sexo == "Fêmea",  yes = perc_categoria, no = -perc_categoria), fill = sexo)) + # nolint
+      geom_bar(stat = "identity") +
+      scale_y_continuous(breaks = seq(-75, 75, 10), labels = abs(seq(-75, 75, 0))) + # nolint
+      #scale_y_continuous(labels = abs_virgula, limits = (max(piramide$pop))* c(-1,1)) + # nolint
+      labs(y = "Porcentagem", x = "Trimestre") +
+      scale_fill_manual(values = c("coral2", "steelblue")) +
+      #scale_fill_brewer(palette = "Set1", direction = 1) +
+      theme(legend.position = "bottom") +
+      coord_flip()
+``` 
