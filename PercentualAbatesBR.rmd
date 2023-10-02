@@ -64,7 +64,7 @@ percentual_abates <- abates |>
 
 ```{r}
 percentual_abates |>
-    dplyr::filter(rebanho == "Bois") |>
+    dplyr::filter(categoria == "Bois") |>
     dplyr::arrange(desc(perc_categoria))
 ```
                    % ABATE DE VACAS AO LONGO DOS ANO 
@@ -126,20 +126,61 @@ rebanho    ano trimestre         trimestre_codigo sexo  perc_categoria
 
 
 ```{r}
+
+```
+
+```{r}
 percentual_abates |>
+    dplyr::filter(trimestre == "2º trimestre 2023")
+```
+
+```{r}
+percentual_abates$categoria <- base::factor(percentual_abates$categoria, levels = c("Bois", "Vacas", "Novilhas", "Novilhos"))
+```
+
+```{r}
+percentual_abates |>
+    #dplyr::arrange(desc(data_trimestre)) |>
     dplyr::filter(ano > 2015) |>
-    ungroup() |>
-    ggplot(
-        mapping = aes(
-            x = trimestre,
-                y = ifelse(
-                    sexo == "Fêmea",  yes = perc_categoria, no = -perc_categoria), fill = sexo)) + # nolint
-      geom_bar(stat = "identity") +
-      scale_y_continuous(breaks = seq(-75, 75, 10), labels = abs(seq(-75, 75, 0))) + # nolint
-      #scale_y_continuous(labels = abs_virgula, limits = (max(piramide$pop))* c(-1,1)) + # nolint
-      labs(y = "Porcentagem", x = "Trimestre") +
-      scale_fill_manual(values = c("coral2", "steelblue")) +
-      #scale_fill_brewer(palette = "Set1", direction = 1) +
-      theme(legend.position = "bottom") +
-      coord_flip()
+    ggplot() +
+        geom_col(aes(x = trimestre, y = ifelse(sexo == "Fêmea",  yes = perc_categoria, no = -perc_categoria), fill = categoria), stat = "identity", alpha = 0.9) + # nolint
+        #geom_hline(aes(yintercept = -64.6)) +
+        scale_y_continuous(breaks = seq(-45, 45, 10), labels = abs(seq(-45, 45, 10))) + # nolint
+        labs(y = "Porcentagem", x = "Trimestre") +
+        scale_fill_manual(values = c( "#8ec0fd", "#fea48e","#fd504b", "#4a6efc")) + # nolint
+      scale_x_discrete(limits = c(
+        "1º trimestre 2016", "2º trimestre 2016", "3º trimestre 2016", "4º trimestre 2016",
+        "1º trimestre 2017", "2º trimestre 2017", "3º trimestre 2017", "4º trimestre 2017",
+        "1º trimestre 2018", "2º trimestre 2018", "3º trimestre 2018", "4º trimestre 2018",
+        "1º trimestre 2019", "2º trimestre 2019", "3º trimestre 2019", "4º trimestre 2019",
+        "1º trimestre 2020", "2º trimestre 2020", "3º trimestre 2020", "4º trimestre 2020",
+        "1º trimestre 2021", "2º trimestre 2021", "3º trimestre 2021", "4º trimestre 2021",
+        "1º trimestre 2022", "2º trimestre 2022", "3º trimestre 2022", "4º trimestre 2022",
+        "1º trimestre 2023", "2º trimestre 2023"
+       )) +
+    theme_void() +
+    coord_flip() +
+    labs(
+        fill   = "",
+        title = "*Percentual de abate por categoria*",
+        subtitle = "(2016 a 2023)",
+        caption = "by **Ítalo Monteiro**
+            Fonte: IBGE (2023)"
+      ) +
+    theme(
+        legend.position = "bottom",
+        plot.title = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 25, hjust = 0.1), # nolint
+        plot.subtitle = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 15, color = "gray50", hjust = 0.1), # nolint
+        plot.caption = ggtext::element_markdown(face = "italic", family = "Fira Sans", size = 10, color = "gray50"), # nolint
+        #axis.title.x = ggtext::element_markdown(face = "bold", family = "Fira Sans", hjust = 0, vjust = -0.5, size = 12), # nolint
+        axis.text.y = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 9, hjust = 1, color = "gray50"), # nolint
+        #axis.text.x = ggtext::element_markdown(face = "bold", family = "sand",size = 8, hjust = 1, color = "gray50"), # nolint
+        plot.margin = margin(rep(15, 4)),
+        panel.background = element_rect(fill = "white", color = "white"),
+        plot.background = element_rect(fill = "white")) +
+    annotate("text", x = 30, y = 11, label = "13.9 %", size = 4) +
+    annotate("text", x = 30, y = -3, label = "4.5 %", size = 4) +
+    annotate("text", x = 30, y = -51, label = "51.8 %", size = 4) +
+    annotate("text", x = 30, y = 40, label = "29.9 %", size = 4) -> percentual_abates_br
+ggsave("Images/percentual_abates_br.png", plot = percentual_abates_br, dpi = 300)
 ``` 
