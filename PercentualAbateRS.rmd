@@ -1,0 +1,176 @@
+---
+title: "Percentual de abate no Rio Grande do Sul por categoria entre 1997 a 2023"
+description: "Quantitativo por categoria atualizado em  06 de setembro de 2023 pelo IBGE"
+author: 
+    - name: "Ítalo Marques-Monteiro"
+    - email: "italo.marques.monteiro@outlook.com"
+    - github: https://github.com/italomarquesmonteiro
+    - kaggle: https://www.kaggle.com/talomarquesmonteiro
+    - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    - lattes: http://lattes.cnpq.br/7174985368517137
+    - orcid_id: https://orcid.org/0000-0003-4367-1034
+    - affiliation: Smart Data  
+
+date: "2023-09-11"
+output: html_document
+---
+
+
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+df_uf <- sidrar::get_sidra(
+    api = "/t/1092/n3/all/v/1000284/p/all/c12716/115236/c18/55,56,111734,111735/c12529/118225/d/v1000284%202") |>
+    janitor::clean_names("snake") |>
+    dplyr::select(
+        cabecas = valor,
+        data_trimestre = trimestre_codigo,
+        trimestre,
+        uf = unidade_da_federacao,
+        categoria = tipo_de_rebanho_bovino) |>
+    dplyr::glimpse()
+```
+
+```{r}
+abates_uf <- df_uf |>
+    dplyr::mutate(
+        sexo = case_when(
+            categoria == "Bois" ~ "Macho",
+            categoria == "Novilhos" ~ "Macho",
+            categoria == "Vacas" ~ "Fêmea",
+            categoria == "Novilhas" ~ "Fêmea",
+            TRUE~ categoria
+        ),
+        sexo = as.factor(sexo),
+        categoria = as.factor(categoria),
+        data_trimestre = lubridate::yq(data_trimestre),
+        ano = lubridate::year(data_trimestre)
+    ) |>
+    dplyr::glimpse()
+```
+
+```{r}
+percentual_abates_rs <- abates_uf |>
+    dplyr::filter(uf == "Rio Grande do Sul") |>
+    #dplyr::select(trimestre, cabecas) |>
+    dplyr::group_by(categoria, ano, trimestre, data_trimestre, sexo) |>
+    dplyr::summarise(cabecas = sum(cabecas, na.rm = TRUE))
+```
+
+
+```{r}
+percentual_abates_rs |>
+    dplyr::filter(categoria == "Novilhas") |>
+    dplyr::arrange(desc(cabecas))
+
+#    categoria   ano         trimestre         data_trimestre    sexo   cabecas
+#     <fct>     <dbl>         <chr>                <date>        <fct>   <dbl>
+#    Novilhos   2001      4º trimestre 2001       2001-10-01     Macho    50.2
+#    Vacas      2005      2º trimestre 2005       2005-04-01     Fêmea    44.7
+#    Bois       2013      2º trimestre 2013       2013-04-01     Macho    37.1
+#    Novilhas   1999      4º trimestre 1999       1999-10-01     Fêmea    16.5
+```
+
+```{r}
+percentual_abates_rs |>
+  dplyr::group_by(categoria) |>
+  dplyr::summarise(media_historica = mean(cabecas, na.rm = TRUE))
+
+#  categoria   media_historica
+#    <fct>          <dbl>
+#   Vacas            35.3
+#   Novilhos         28.6
+#   Bois             27.1
+#   Novilhas         7.21
+```
+
+
+```{r}
+colors <- c("#929d37", "#064a81")
+title_text <- glue::glue('O percentual de participação no abate de <span style = "color:{colors[2]}">**vacas**</span><br> é superior ao abate de <span style = "color:{colors[1]}">**bois**</span> 
+há 10 anos no Rio Grande do Sul')
+caption_text <- glue::glue('*by* **Ítalo Monteiro.** *Dados:* *IBGE* (2023) *Nota:* <span style = "color:{colors[1]}">**Bois**</span> - bovino macho adulto, com 2 anos de idade ou mais. Inclui o macho não castrado (touro). <span style = "color:{colors[2]}">**Vacas**</span><br> - bovino fêmea adulta, com 2 anos de idade ou mais, independente de já ter parido ou não. Os dados são oriundos de estabelecimentos que estão sob inspeção sanitária federal, estadual ou municipal')
+
+grafico_rs <- percentual_abates_rs |>
+  ggplot(aes(x = data_trimestre, y = cabecas, color = categoria)) +
+  geom_line(linewidth = 1.5) +
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y") +
+  theme_minimal(
+    base_size = 24,
+    base_family = "Source Sans Pro"
+  ) +
+  labs(
+    x = "",
+    y = element_blank(),
+    title = title_text,
+    subtitle = "*Histórico de abate bovino por categoria (em porcentagem)*",
+    caption = caption_text
+  ) +
+  scale_color_manual(values = colors
+  ) +
+  #scale_y_continuous(labels = scales::percent_format(accuracy = 1)
+  #) +
+  theme(
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(linewidth = 0.5, linetype = 2, color = "grey85"), # nolint
+    panel.background = element_rect(fill = "white", color = "white"),
+    plot.background = element_rect(fill = "white"),
+    plot.title.position = "plot",
+    plot.caption.position = "plot",
+    text = element_text(color = "grey30"),
+    axis.text = element_text(color = "grey40"),
+    axis.text.x = element_text(size = 10 ),
+    plot.title = ggtext::element_markdown(
+      color = "grey30", family = "Merriweather"
+    ),
+    plot.subtitle = ggtext::element_markdown(
+      color = "grey50",
+      size = rel(0.8),
+      margin = margin(b = 8, unit = "mm")
+    ),
+    plot.caption = ggtext::element_markdown(
+      color = "grey40", size = 13.5, hjust = 0,
+            margin = margin(t = 0, b = 0, unit = "cm"
+    ))
+  ) +
+  gghighlight::gghighlight(
+    categoria %in% c("Bois", "Vacas"),
+    data_trimestre >= "2013-04-01",
+    use_direct_label = FALSE,
+    use_group_by = FALSE,
+    unhighlighted_params = list(color = "grey80", linewidth = 1)
+  ) +
+  annotate(
+    "text",
+    x = as.Date("2024-10-01"),
+    y = c(24, 36),
+    size = 8,
+    label = c("Bois", "Vacas"),
+    family = "Source Sans Pro",
+    fontface = "bold",
+    hjust = 1,
+    color = colors
+  ) +
+  annotate(
+    "segment",
+    x = as.Date("2013-04-01"),
+    xend = as.Date("2013-04-01"),
+    y = 0,
+    yend = 35,
+    linetype = 3,
+    linewidth = 1,
+    color = "grey10"
+  ) +
+  scale_color_manual(values = colors)
+grafico_rs
+```
+
+
+```{r}
+ggsave("Images/percentual_abates_rs.png", plot = grafico_rs, dpi = 300, width = 15, height = 9)
+```
