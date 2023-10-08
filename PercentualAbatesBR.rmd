@@ -183,4 +183,4 @@ percentual_abates |>
     annotate("text", x = 30, y = -51, label = "51.8 %", size = 4) +
     annotate("text", x = 30, y = 40, label = "29.9 %", size = 4) -> percentual_abates_br
 ggsave("Images/percentual_abates_br.png", plot = percentual_abates_br, dpi = 300)
-``` 
+```
