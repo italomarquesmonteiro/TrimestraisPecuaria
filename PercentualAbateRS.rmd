@@ -93,7 +93,8 @@ percentual_abates_rs |>
 colors <- c("#929d37", "#064a81")
 title_text <- glue::glue('O percentual de participação no abate de <span style = "color:{colors[2]}">**vacas**</span><br> é superior ao abate de <span style = "color:{colors[1]}">**bois**</span> 
 há 10 anos no Rio Grande do Sul')
-caption_text <- glue::glue('*by* **Ítalo Monteiro.** *Dados:* *IBGE* (2023) *Nota:* <span style = "color:{colors[1]}">**Bois**</span> - bovino macho adulto, com 2 anos de idade ou mais. Inclui o macho não castrado (touro). <span style = "color:{colors[2]}">**Vacas**</span><br> - bovino fêmea adulta, com 2 anos de idade ou mais, independente de já ter parido ou não. Os dados são oriundos de estabelecimentos que estão sob inspeção sanitária federal, estadual ou municipal')
+caption_text <- glue::glue('*by* **Ítalo Monteiro.** *Dados:* *IBGE* (2023). *Nota:* <span style = "color:{colors[1]}">**Bois**</span> - bovino macho adulto, com 2 anos de idade ou mais. Inclui o macho não castrado (touro). <span style = "color:{colors[2]}">**Vacas**</span><br> - bovino fêmea adulta, com 2 anos de idade ou mais, independente de já ter parido ou não. Os dados são oriundos de estabelecimentos que estão sob inspeção sanitária federal, estadual ou municipal.
+')
 
 grafico_rs <- percentual_abates_rs |>
   ggplot(aes(x = data_trimestre, y = cabecas, color = categoria)) +
@@ -172,5 +173,5 @@ grafico_rs
 
 
 ```{r}
-ggsave("Images/percentual_abates_rs.png", plot = grafico_rs, dpi = 300, width = 15, height = 9)
+ggsave("Images/percentual_abates_rs.png", plot = grafico_rs, dpi = 300, width = 17, height = 9)
 ```
