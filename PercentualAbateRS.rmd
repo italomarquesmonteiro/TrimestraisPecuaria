@@ -64,7 +64,7 @@ percentual_abates_rs <- abates_uf |>
 
 ```{r}
 percentual_abates_rs |>
-    dplyr::filter(categoria == "Novilhas") |>
+    dplyr::filter(categoria == "Bois") |>
     dplyr::arrange(desc(cabecas))
 
 #    categoria   ano         trimestre         data_trimestre    sexo   cabecas
@@ -97,8 +97,9 @@ caption_text <- glue::glue('*by* **Ítalo Monteiro.** *Dados:* *IBGE* (2023). *N
 ')
 
 grafico_rs <- percentual_abates_rs |>
+  #dplyr::filter(categoria %in% c("Bois", "Vacas")) |>
   ggplot(aes(x = data_trimestre, y = cabecas, color = categoria)) +
-  geom_line(linewidth = 1.5) +
+  geom_line(linewidth = 0.5) +
   scale_x_date(date_breaks = "2 year", date_labels = "%Y") +
   theme_minimal(
     base_size = 24,
@@ -169,6 +170,7 @@ grafico_rs <- percentual_abates_rs |>
   ) +
   scale_color_manual(values = colors)
 grafico_rs
+plotly::ggplotly(grafico_rs)
 ```
 
 
