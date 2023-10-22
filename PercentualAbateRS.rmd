@@ -54,30 +54,40 @@ abates_uf <- df_uf |>
 ```
 
 ```{r}
-percentual_abates_rs <- abates_uf |>
-    dplyr::filter(uf == "Rio Grande do Sul") |>
+percentual_abates_mt <- abates_uf |>
+    dplyr::filter(uf == "Mato Grosso") |>
     #dplyr::select(trimestre, cabecas) |>
     dplyr::group_by(categoria, ano, trimestre, data_trimestre, sexo) |>
     dplyr::summarise(cabecas = sum(cabecas, na.rm = TRUE))
 ```
 
-
+Maiores registros de participação no abate total
 ```{r}
-percentual_abates_rs |>
-    dplyr::filter(categoria == "Bois") |>
-    dplyr::arrange(desc(cabecas))
+percentual_abates_mt |>
+    dplyr::filter(sexo == "Fêmea" & ano >= 2006) |>
+    dplyr::arrange(desc(ano))
 
+# Rio Grande do Sul
 #    categoria   ano         trimestre         data_trimestre    sexo   cabecas
 #     <fct>     <dbl>         <chr>                <date>        <fct>   <dbl>
 #    Novilhos   2001      4º trimestre 2001       2001-10-01     Macho    50.2
 #    Vacas      2005      2º trimestre 2005       2005-04-01     Fêmea    44.7
 #    Bois       2013      2º trimestre 2013       2013-04-01     Macho    37.1
 #    Novilhas   1999      4º trimestre 1999       1999-10-01     Fêmea    16.5
+
+# Mato Grosso
+#    categoria   ano         trimestre         data_trimestre    sexo   cabecas
+#     <fct>     <dbl>         <chr>                <date>        <fct>   <dbl>
+#    Bois       2008      3º trimestre 2008       2008-07-01     Macho    73.0
+#    Vacas      2006      1º trimestre 2006       2006-01-01     Fêmea    47.7
+#    Novilhas   2023      2º trimestre 2023       2023-04-01     Fêmea    22.2
+#    Novilhos   2001      2º trimestre 2001       2001-04-01     Macho    21.9
 ```
 
+Média histórica do percentual de abate total
 ```{r}
-percentual_abates_rs |>
-  dplyr::group_by(categoria) |>
+percentual_abates_mt |>
+  dplyr::group_by(sexo) |>
   dplyr::summarise(media_historica = mean(cabecas, na.rm = TRUE))
 
 #  categoria   media_historica
@@ -86,6 +96,13 @@ percentual_abates_rs |>
 #   Novilhos         28.6
 #   Bois             27.1
 #   Novilhas         7.21
+
+# categoria    media_historica
+#   <fct>           <dbl>
+#  Bois              59.3
+#  Vacas             30.7
+#  Novilhas          6.19
+#  Novilhos          1.86
 ```
 
 
@@ -96,7 +113,7 @@ há 10 anos no Rio Grande do Sul')
 caption_text <- glue::glue('*by* **Ítalo Monteiro.** *Dados:* *IBGE* (2023). *Nota:* <span style = "color:{colors[1]}">**Bois**</span> - bovino macho adulto, com 2 anos de idade ou mais. Inclui o macho não castrado (touro). <span style = "color:{colors[2]}">**Vacas**</span><br> - bovino fêmea adulta, com 2 anos de idade ou mais, independente de já ter parido ou não. Os dados são oriundos de estabelecimentos que estão sob inspeção sanitária federal, estadual ou municipal.
 ')
 
-grafico_rs <- percentual_abates_rs |>
+grafico_rs <- percentual_abates_mt |>
   #dplyr::filter(categoria %in% c("Bois", "Vacas")) |>
   ggplot(aes(x = data_trimestre, y = cabecas, color = categoria)) +
   geom_line(linewidth = 0.5) +
