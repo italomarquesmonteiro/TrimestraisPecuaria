@@ -136,4 +136,10 @@ grafico_carcaca <- abate |>
 grafico_carcaca
 
 # Salvando o gráfico
-ggsave(".vscode/Images/carcaca_preliminar_4tri23.png", plot = grafico_carcaca, dpi = 300)
+ggsave(
+    ".vscode/Images/carcaca_preliminar_4tri23.png",
+    plot = grafico_carcaca,
+    dpi = 300,
+    height = 9,
+    width =  15
+    )
