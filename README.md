@@ -5,7 +5,7 @@
 
 ##
 
-<img style="width:200px; height:200px;" src=".vscode\Images\ibge.jpg" alt="Logo IBGE">
+<img style="width:600px; height:250px;" src=".vscode\Images\Carcaça-Bovina.jpg" alt="Logo IBGE">
 
 # Contatos do autor
 
@@ -19,10 +19,13 @@
 
 ## Índice
 
-- <a href="#descricao">Descrição Geral</a>
-- <a href="#objetivo">Objetivo</a>
-- <a href="#dados">Dados</a>
-- <a href="#manipulacao">Manipulação</a>
+<ul>
+        <li><a href="#descricao">Descrição Geral</a></li>
+        <li><a href="#objetivo">Objetivo</a></li>
+        <li><a href="#dados">Dados</a></li>
+        <li><a href="#manipula">Manipula</a></li>
+        <li><a href="#dataviz">DataViz</a></li>
+    </ul>
 
 ## Descrição Geral
 
@@ -36,5 +39,6 @@ Este projeto quantifica a quantidade total de animais abatidos e o peso total da
 
 ## Dados
 
+## Manipula
 
-## Manipulação
+## DataViz
