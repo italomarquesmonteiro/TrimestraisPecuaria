@@ -1,30 +1,23 @@
----
-title: "Abate bovino no  3º trimestre 2023 "
-description: "Quantitativo por categoria atualizado em  09 de novembro de 2023 pelo IBGE"
-author: 
-    - name: "Ítalo Marques-Monteiro"
-    - email: "italo.marques.monteiro@outlook.com"
-    - github: https://github.com/italomarquesmonteiro
-    - kaggle: https://www.kaggle.com/talomarquesmonteiro
-    - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
-    - lattes: http://lattes.cnpq.br/7174985368517137
-    - orcid_id: https://orcid.org/0000-0003-4367-1034
-    - affiliation: Smart Data  
-        
-date: "2023-09-11"
-output: html_document
----
+#    title: "Abate bovino no  3º trimestre 2023 "
+#    description: "Quantitativo por categoria atualizado em  09 de novembro de 2023 pelo IBGE"
+#    author: 
+#        - name: "Ítalo Marques-Monteiro"
+#        - email: "italo.marques.monteiro@outlook.com"
+#        - github: https://github.com/italomarquesmonteiro
+#        - kaggle: https://www.kaggle.com/talomarquesmonteiro
+#        - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+#        - lattes: http://lattes.cnpq.br/7174985368517137
+#        - orcid_id: https://orcid.org/0000-0003-4367-1034
+#        - affiliation: Smart Data  
+#            
+#    date: "2023-09-11"
 
-Informações:
-[IBGE](https://www.ibge.gov.br/)
-[Comunidado](https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/38302-abate-de-bovinos-frangos-e-suinos-cresce-no-3-trimestre-de-2023)
-[Dados](https://sidra.ibge.gov.br/tabela/6829)
 
-```{r}
+
 library(tidyverse)
-```
 
-```{r}
+
+
 abate_br  <- sidrar::get_sidra(
     api = "/t/6829/n1/all/v/all/p/all/c12716/115236/c79/all") |>
     janitor::clean_names("snake") |>
@@ -47,10 +40,10 @@ abate <- abate_br |>
         cabeca = `Animais abatidos`, carcaca = `Peso total das carcaças`) |>
     dplyr::mutate(peso_car = carcaca / cabeca) |>
     dplyr::glimpse()
-```
 
 
-```{r}
+
+
 abate |>
     dplyr::filter(tipo_de_rebanho == "Bovinos" & trimestre %in% c(
         "4º trimestre 2022", "3º trimestre 2023","4º trimestre 2023")) |> # nolint
@@ -59,10 +52,10 @@ abate |>
 
 
 
-```
 
 
-```{r}
+
+
 colors <- c("#929d37", "#064a81")  # Corrigindo a inicialização do vetor colors
 title_text <- glue::glue('Quantitativo de <span style="color:{colors[2]}">**cabeças bovinas**</span> guiadas<br>para abate no 4º trimestre de 2023') # nolint
 subtitle_text <- glue::glue("")
@@ -205,9 +198,9 @@ grafico_abt <- abate |>
     color = "white"
   )
 grafico_abt
-```
 
-```{r}
+
+
 ggsave(
     "Images/abate_preliminar_4tri23.png",
         plot = grafico_abt,
@@ -215,12 +208,12 @@ ggsave(
                 #width = 15.5,
                  #height = 9
     )
-```
 
 
 
 
-```{r}
+
+
 colors <- c("#929d37", "#064a81")
 title_text <- glue::glue('O maior volume de <span style = "color:{colors[1]}">**toneladas de carcaça**</span><br> bovina produzidas na história')
 subtitle_text <- glue::glue("")
@@ -311,9 +304,9 @@ grafico_carcaca <- abate |>
                             colour = "gray45"
     )
 grafico_carcaca
-```
 
-```{r}
+
+
 ggsave(
     "Images/carcaca_preliminar_3tri23.png",
         plot = grafico_carcaca,
@@ -321,9 +314,9 @@ ggsave(
                 width = 13.8,
                     height = 9
     )
-```
 
-```{r}
+
+
 colors <- c("#929d37", "#064a81", "mediumpurple1")
 title_text <- glue::glue('<span style = "color:{colors[3]}">**Peso da carcaça bovina**</span><br>entre os trimestre de 2021 a 2023')
 subtitle_text <- glue::glue("")
@@ -413,9 +406,9 @@ grafico_peso_car <- abate |>
                             colour = "gray45"
     )
 grafico_peso_car
-```
 
-```{r}
+
+
 ggsave(
     "Images/abate_peso_car.png",
         plot = grafico_peso_car,
@@ -423,4 +416,4 @@ ggsave(
                 width = 13.8,
                     height = 9
     )
-```
+
