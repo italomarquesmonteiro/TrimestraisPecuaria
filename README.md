@@ -23,7 +23,6 @@
         <li><a href="#descricao">Descrição Geral</a></li>
         <li><a href="#objetivo">Objetivo</a></li>
         <li><a href="#dados">Dados</a></li>
-        <li><a href="#manipula">Manipula</a></li>
         <li><a href="#dataviz">DataViz</a></li>
     </ul>
 
@@ -39,7 +38,10 @@ Este projeto quantifica a quantidade total de animais abatidos e o peso total da
 
 ## Dados
 
-## Manipula
+Os dados do 4º trimestre de 2023 podem ser acessados [aqui](https://sidra.ibge.gov.br/tabela/6829)
+
+> [!NOTE]
+> Os dados dos 4º trimestres do ano são preliminares até a divulgação dos dados do 1° trimestre do ano seguinte.
 
 ## DataViz
 
@@ -50,5 +52,7 @@ No dia 09/01/2024, o IBGE divulgou dados preliminares do abate bovino no 4º tri
 📉 Porém, ao calcular o peso médio da carcaça entre esses trimestres, observamos o reflexo do ciclo pecuário e, com ele, a participação expressiva de fêmeas 🐄 no abate, resultando em uma redução no peso médio da carcaça bovina, a saber, 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023.
 
 Contudo, é importante aguardar os resultados completos do trimestre (14/03/2024), por unidades da federação e categorias, para um entendimento completo do panorama do abate bovino no Brasil.
+
+ Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisAbate.R)
 
  <img style="width:px; height:px;" src=".vscode\Images\abate_preliminar_4tri23.png" alt="Abate 4º tri 2023">
