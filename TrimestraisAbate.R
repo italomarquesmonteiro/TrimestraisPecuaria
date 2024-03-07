@@ -9,17 +9,14 @@
 #        - lattes: http://lattes.cnpq.br/7174985368517137
 #        - orcid_id: https://orcid.org/0000-0003-4367-1034
 #        - affiliation: Smart Data  
-#            
+
 #    date: "2023-09-11"
 
 
 
 library(tidyverse)
 
-
-
-abate_br  <- sidrar::get_sidra(
-    api = "/t/6829/n1/all/v/all/p/all/c12716/115236/c79/all") |>
+abate_br  <- sidrar::get_sidra(api = "/t/6829/n1/all/v/all/p/all/c12716/115236/c79/all") |>
     janitor::clean_names("snake") |>
     dplyr::glimpse()
 
@@ -47,7 +44,7 @@ abate <- abate_br |>
 abate |>
     dplyr::filter(tipo_de_rebanho == "Bovinos" & trimestre %in% c(
         "4º trimestre 2022", "3º trimestre 2023","4º trimestre 2023")) |> # nolint
-        dplyr::mutate()
+    #dplyr::mutate()
     dplyr::arrange(desc(cabeca))
 
 
@@ -165,11 +162,9 @@ grafico_abt <- abate |>
         axis.text.y = ggtext::element_markdown(face = "italic", family = "Fira Sans Pro", size = 10, color = "gray50"),
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
-        #plot.margin = margin(rep(15, 4)),
         panel.background = element_rect(fill = "white", color = "white"),
         plot.background = element_rect(fill = "white"),
-        line = element_blank(),#,
-        #rect = element_blank()
+        line = element_blank(),
         axis.text.x = ggtext::element_markdown(
           face = "bold", family = "Fira Sans",size = 8, color = "gray50", angle = 0, hjust = 1, vjust = 1) # nolint
         ) +
