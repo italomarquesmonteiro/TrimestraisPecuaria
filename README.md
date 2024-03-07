@@ -63,4 +63,4 @@ Contudo, é importante aguardar os resultados completos do trimestre (14/03/2024
 Foram produzidas 2,36 milhões de toneladas de carcaça bovina no 4º trimestre de 2024, esse é o maior registro de produção ao longo da série histórica.
 
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisVolumeCarcaca.R)
-<img style="width:700px; height:px;" src=".vscode\Images\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
+<img style="width:px; height:px;" src=".vscode\Images\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
