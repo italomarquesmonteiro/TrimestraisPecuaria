@@ -23,7 +23,8 @@
         <li><a href="#descricao">Descrição Geral</a></li>
         <li><a href="#objetivo">Objetivo</a></li>
         <li><a href="#dados">Dados</a></li>
-        <li><a href="#dataviz">DataViz</a></li>
+        <li><a href="#abate">Abate</a></li>
+        <li><a href="#carcaca">Carcaca</a></li>
     </ul>
 
 ## Descrição Geral
@@ -43,7 +44,7 @@ Os dados do 4º trimestre de 2023 podem ser acessados [aqui](https://sidra.ibge.
 > [!NOTE]
 > Os dados dos 4º trimestres do ano são preliminares até a divulgação dos dados do 1° trimestre do ano seguinte.
 
-## DataViz
+## Abate
 
 🐂📊 Cresce o Abate Bovino no 4º Trimestre de 2023 
 
@@ -53,9 +54,13 @@ No dia 09/01/2024, o IBGE divulgou dados preliminares do abate bovino no 4º tri
 
 Contudo, é importante aguardar os resultados completos do trimestre (14/03/2024), por unidades da federação e categorias, para um entendimento completo do panorama do abate bovino no Brasil.
 
- Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisAbate.R)
+* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisAbate.R)
 
  <img style="width:px; height:px;" src=".vscode\Images\abate_preliminar_4tri23.png" alt="Abate 4º tri 2023">
 
+# Carcaca
 
+Foram produzidas 2,36 milhões de toneladas de carcaça bovina no 4º trimestre de 2024, esse é o maior registro de produção ao longo da série histórica.
+
+* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisVolumeCarcaca.R)
 <img style="width:px; height:px;" src=".vscode\Images\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
