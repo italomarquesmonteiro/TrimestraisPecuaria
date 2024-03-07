@@ -1,4 +1,4 @@
-# Trimestrais da Peuária
+# Abate de bovinos no Brasil
 
 
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/LICENSE)
@@ -22,12 +22,19 @@
 - <a href="#descricao">Descrição Geral</a>
 - <a href="#objetivo">Objetivo</a>
 - <a href="#dados">Dados</a>
-- <a href="#limpeza">Limpeza</a>
+- <a href="#manipulacao">Manipulação</a>
 
 ## Descrição Geral
 
+O Instituto Brasileiro de Geografia e Estatística [(IBGE)](https://www.ibge.gov.br/), é a principal instituição de estatísticas do Brasil. Sua função é coletar, analisar e divulgar dados estatísticos sobre diversas áreas, incluindo população, economia, agricultura, pecuária e outros setores. 
+
+A [pesquisa trimestral de abate animal](https://sidra.ibge.gov.br/tabela/1092) é divulgada pelo IBGE desde 1º trimestre 1997.  Essa informações são essenciais para entender as tendências no abate de bovinos, suínos, e aves ao longo do tempo nas regiões geográficas do Brasil.
+
 ## Objetivo
+
+Este projeto quantifica a quantidade total de animais abatidos e o peso total das carcaças. Essas informações são fundamentais para avaliar a oferta de carne no mercado, identificar variações sazonais e antecipar mudanças nas preferências do consumidor, possibilitando a identificação de desafios potenciais na produção.
 
 ## Dados
 
-## Limpeza
+
+## Manipulação
