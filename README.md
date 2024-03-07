@@ -42,3 +42,13 @@ Este projeto quantifica a quantidade total de animais abatidos e o peso total da
 ## Manipula
 
 ## DataViz
+
+🐂📊 Cresce o Abate Bovino no 4º Trimestre de 2023 
+
+No dia 09/01/2024, o IBGE divulgou dados preliminares do abate bovino no 4º trimestre de 2023. Com o abate de 9,05 milhões de cabeças, 📈 observamos um aumento em relação ao 3º trimestre, registrando uma elevação de 1,3%. Além disso, comparado ao mesmo período de 2022, o crescimento foi significativo, atingindo 19,9%.
+
+📉 Porém, ao calcular o peso médio da carcaça entre esses trimestres, observamos o reflexo do ciclo pecuário e, com ele, a participação expressiva de fêmeas 🐄 no abate, resultando em uma redução no peso médio da carcaça bovina, a saber, 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023.
+
+Contudo, é importante aguardar os resultados completos do trimestre (14/03/2024), por unidades da federação e categorias, para um entendimento completo do panorama do abate bovino no Brasil.
+
+ <img style="width:px; height:px;" src=".vscode\Images\abate_preliminar_4tri23.png" alt="Abate 4º tri 2023">
