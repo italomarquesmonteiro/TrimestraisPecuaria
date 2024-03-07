@@ -49,7 +49,7 @@ abate |>
 colors <- c("#929d37", "#064a81")
 title_text <- glue::glue('O maior volume de <span style = "color:{colors[1]}">**toneladas de carcaça**</span><br> bovina produzidas na história')
 subtitle_text <- glue::glue("")
-caption_text <- glue::glue('**Dados preliminares:** IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2023)] | **Plot:** Ítalo Monteiro')
+caption_text <- glue::glue('**Plot:** @italo.m.m<br>**Dados preliminares:** IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2023)]')
 
 # Criando o gráfico
 grafico_carcaca <- abate |>
