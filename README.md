@@ -45,22 +45,28 @@ Os dados do 4º trimestre de 2023 podem ser acessados [aqui](https://sidra.ibge.
 > Os dados dos 4º trimestres do ano são preliminares até a divulgação dos dados do 1° trimestre do ano seguinte.
 
 ## Abate
+ 
+Os dados preliminares do abate bovino no 4º trimestre de 2023. Foram abatidos 9,05 milhões de cabeças, observamos um aumento em relação ao 3º trimestre, registrando uma elevação de 1,3%. Além disso, comparado ao mesmo período de 2022, o crescimento foi significativo, atingindo 19,9%.
 
-🐂📊 Cresce o Abate Bovino no 4º Trimestre de 2023 
-
-No dia 09/01/2024, o IBGE divulgou dados preliminares do abate bovino no 4º trimestre de 2023. Com o abate de 9,05 milhões de cabeças, 📈 observamos um aumento em relação ao 3º trimestre, registrando uma elevação de 1,3%. Além disso, comparado ao mesmo período de 2022, o crescimento foi significativo, atingindo 19,9%.
-
-📉 Porém, ao calcular o peso médio da carcaça entre esses trimestres, observamos o reflexo do ciclo pecuário e, com ele, a participação expressiva de fêmeas 🐄 no abate, resultando em uma redução no peso médio da carcaça bovina, a saber, 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023.
-
-Contudo, é importante aguardar os resultados completos do trimestre (14/03/2024), por unidades da federação e categorias, para um entendimento completo do panorama do abate bovino no Brasil.
+Porém, ao calcular o peso médio da carcaça entre esses trimestres, observamos o reflexo do ciclo pecuário e, com ele, a participação expressiva de fêmeas no abate, resultando em uma redução no peso médio da carcaça bovina, a saber, 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023.
 
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisAbate.R)
 
  <img style="width700:px; height:px;" src=".vscode\Images\abate_preliminar_4tri23.png" alt="Abate 4º tri 2023">
 
-# Carcaca
+## Carcaca
 
 Foram produzidas 2,36 milhões de toneladas de carcaça bovina no 4º trimestre de 2024, esse é o maior registro de produção ao longo da série histórica.
 
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisVolumeCarcaca.R)
 <img style="width:px; height:px;" src=".vscode\Images\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
+
+## Abate - Rio Grande do Sul
+
+A cronologia dos dados de abate bovino no Rio Grande do Sul demonstram na média histórica maior participação de vacas no abate, são 35,3%, seguido de novilhos (28,6%), de bois (27,1%) e de novilhas (7,21%).
+
+Entre os anos de 1997 a 2023, a participação de vacas na comparação com bois só foi menor duas vezes, no 3º trimestre de 2007 com 27,2% (2,8% inferior) e no 2º trimestre de 2013 com 34,1% (8,4% inferior).
+
+O maior registro de participação no percentual de abate é de novilhos, 50,2% no 4º trimestre de 2001. 
+
+<img style="width:px; height:px;" src=".vscode\Images\percentual_abates_rs.png" alt="Abate-RS">
