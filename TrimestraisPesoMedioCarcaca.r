@@ -47,7 +47,7 @@ abate |>
 
 # Configurando cores, título e subtítulo para o gráfico
 colors <- c("#929d37", "#064a81", "mediumpurple1")
-title_text <- glue::glue('<span style = "color:{colors[3]}">**Peso da carcaça bovina**</span><br>entre os trimestre de 2021 a 2023')
+title_text <- glue::glue('<span style = "color:{colors[3]}">**Peso da carcaça bovina**</span><br>entre os trimestre de 2018 a 2023')
 subtitle_text <- glue::glue("")
 caption_text <- glue::glue('**Plot:** @italo.m.m<br>**Dados preliminares:** IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2023)]')
 
@@ -102,7 +102,8 @@ grafico_peso_car <- abate |>
         axis.title.x = element_blank(),
         axis.text.x = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 8, color = "gray50", angle = 60, hjust = 1, vjust = 1),
         panel.background = element_rect(fill = "white", color = "white"),
-        plot.background = element_rect(fill = "white")
+        plot.background = element_rect(fill = "white"),
+        line = element_blank()
     ) +
     annotate("text", label = "266.2", x = 21, y = 272, size = 5, family = "Fira Sans Pro", colour = "mediumpurple1") +
     annotate("text", label = "266.6", x = 20, y = 270, size = 4, colour = "gray45") +
