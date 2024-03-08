@@ -17,16 +17,6 @@
 ![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCB_lseG8dAbdjuemJv-nHXw)
 
-## Índice
-
-<ul>
-        <li><a href="#descricao">Descrição Geral</a></li>
-        <li><a href="#objetivo">Objetivo</a></li>
-        <li><a href="#dados">Dados</a></li>
-        <li><a href="#abate">Abate</a></li>
-        <li><a href="#carcaca">Carcaca</a></li>
-    </ul>
-
 ## Descrição Geral
 
 O Instituto Brasileiro de Geografia e Estatística [(IBGE)](https://www.ibge.gov.br/), é a principal instituição de estatísticas do Brasil. Sua função é coletar, analisar e divulgar dados estatísticos sobre diversas áreas, incluindo população, economia, agricultura, pecuária e outros setores. 
@@ -44,35 +34,38 @@ Os dados do 4º trimestre de 2023 podem ser acessados [aqui](https://sidra.ibge.
 > [!NOTE]
 > Os dados dos 4º trimestres do ano são preliminares até a divulgação dos dados do 1° trimestre do ano seguinte.
 
-## Abate
- 
-Os dados preliminares do abate bovino no 4º trimestre de 2023. Foram abatidos 9,05 milhões de cabeças, observamos um aumento em relação ao 3º trimestre, registrando uma elevação de 1,3%. Além disso, comparado ao mesmo período de 2022, o crescimento foi significativo, atingindo 19,9%.
+## Cabeças Abatidas
 
-Porém, ao calcular o peso médio da carcaça entre esses trimestres, observamos o reflexo do ciclo pecuário e, com ele, a participação expressiva de fêmeas no abate, resultando em uma redução no peso médio da carcaça bovina, a saber, 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023.
+No 4º trimestre de 2023, o abate bovino registrou um total de 9,05 milhões de cabeças, representando um aumento de 1,3% em relação ao trimestre anterior e um notável crescimento de 19,9% em comparação com o mesmo período de 2022.
 
-Foram produzidas 2,36 milhões de toneladas de carcaça bovina no 4º trimestre de 2024, esse é o maior registro de produção ao longo da série histórica.
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisAbate.R)
 
  <img style="width700:px; height:px;" src=".vscode\Images\abate_preliminar_4tri23.png" alt="Abate 4º tri 2023">
 
-#
+## Volume de carcaça
+
+A produção de carcaça bovina atingiu um marco histórico, alcançando 2,41 milhões de toneladas no 4º trimestre de 2023.
 
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisVolumeCarcaca.R)
 
 <img style="width:px; height:px;" src=".vscode\Images\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
 
-#
+## Peso Médio da carcaça bovina
+
+Entretanto, ao analisar o peso médio da carcaça entre os trimestres, identificamos a influência do ciclo pecuário. A presença significativa de fêmeas no abate contribuiu para uma redução no peso médio da carcaça bovina, que foi de 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023. Esse fenômeno reflete a dinâmica do setor e ressalta a importância de considerar o ciclo pecuário ao interpretar as variações no peso médio da carcaça.
 
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisPesoMedioCarcaca.r)
 
 <img style="width:px; height:px;" src=".vscode\Images\abate_peso_car.png" alt="Peso Carcaça">
 
-## Abate - Rio Grande do Sul
+## Variações da composição de abate no Rio Grande do Sul
 
-A cronologia dos dados de abate bovino no Rio Grande do Sul demonstram na média histórica maior participação de vacas no abate, são 35,3%, seguido de novilhos (28,6%), de bois (27,1%) e de novilhas (7,21%).
+A análise da cronologia dos dados de abate bovino no Rio Grande do Sul revela uma tendência de maior participação de vacas, com uma média histórica de 35,3%, seguida por novilhos (28,6%), bois (27,1%) e novilhas (7,21%).
 
-Entre os anos de 1997 a 2023, a participação de vacas na comparação com bois só foi menor duas vezes, no 3º trimestre de 2007 com 27,2% (2,8% inferior) e no 2º trimestre de 2013 com 34,1% (8,4% inferior).
+No período de 1997 a 2023, a participação de vacas em relação aos bois foi inferior em apenas duas ocasiões. No 3º trimestre de 2007, registrou-se 27,2%, representando uma diminuição de 2,8%, e no 2º trimestre de 2013, atingiu 34,1%, refletindo uma redução de 8,4%.
 
-O maior registro de participação no percentual de abate é de novilhos, 50,2% no 4º trimestre de 2001. 
+Destaca-se que o ápice na participação percentual de abate ocorreu com os novilhos, alcançando 50,2% no 4º trimestre de 2001. 
+
+* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/PercentualAbateRS.rmd)
 
 <img style="width:px; height:px;" src=".vscode\Images\percentual_abates_rs.png" alt="Abate-RS">
