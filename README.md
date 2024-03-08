@@ -50,16 +50,22 @@ Os dados preliminares do abate bovino no 4º trimestre de 2023. Foram abatidos 9
 
 Porém, ao calcular o peso médio da carcaça entre esses trimestres, observamos o reflexo do ciclo pecuário e, com ele, a participação expressiva de fêmeas no abate, resultando em uma redução no peso médio da carcaça bovina, a saber, 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023.
 
+Foram produzidas 2,36 milhões de toneladas de carcaça bovina no 4º trimestre de 2024, esse é o maior registro de produção ao longo da série histórica.
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisAbate.R)
 
  <img style="width700:px; height:px;" src=".vscode\Images\abate_preliminar_4tri23.png" alt="Abate 4º tri 2023">
 
-## Carcaca
-
-Foram produzidas 2,36 milhões de toneladas de carcaça bovina no 4º trimestre de 2024, esse é o maior registro de produção ao longo da série histórica.
+#
 
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisVolumeCarcaca.R)
+
 <img style="width:px; height:px;" src=".vscode\Images\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
+
+#
+
+* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisPesoMedioCarcaca.r)
+
+<img style="width:px; height:px;" src=".vscode\Images\abate_peso_car.png" alt="Peso Carcaça">
 
 ## Abate - Rio Grande do Sul
 

@@ -42,7 +42,7 @@ abate |>
     ) |> 
     dplyr::arrange(
         desc(
-            cabeca)
+            carcaca)
     )
 
 # Configurando cores, título e subtítulo para o gráfico
@@ -54,10 +54,9 @@ caption_text <- glue::glue('**Plot:** @italo.m.m<br>**Dados preliminares:** IBGE
 # Criando o gráfico
 grafico_carcaca <- abate |>
     dplyr::filter(
-        tipo_de_rebanho == "Bovinos" &
-        trimestre >= "1º trimestre 2021"
+        tipo_de_rebanho == "Bovinos" 
     ) |>
-    #dplyr::summarise(media = mean(peso_car), mediana = median(peso_car)) |>
+    #dplyr::summarise(media = mean(carcaca), mediana = median(carcaca)) |>
     ggplot2::ggplot(
         aes(
             x = trimestre,
@@ -68,9 +67,9 @@ grafico_carcaca <- abate |>
         aes(
             fill = ifelse(
                 trimestre %in% c(
-                    "3º trimestre 2022",
-                    "2º trimestre 2023",
-                    "3º trimestre 2023"),
+                    "4º trimestre 2022",
+                    "3º trimestre 2023",
+                    "4º trimestre 2023"),
                 "high", "default")),
         radius = grid :: unit(3, "mm")
     ) +
@@ -81,7 +80,7 @@ grafico_carcaca <- abate |>
         )
     ) +
      geom_hline(
-        yintercept = 1986839568,
+        yintercept = 2064447993.,
         lty = 3,
         color = "gray30"
     ) +
@@ -104,11 +103,20 @@ grafico_carcaca <- abate |>
         plot.background = element_rect(fill = "white"),
         line = element_blank()#,
         ) +
-    annotate("text", label = "2,36 milhões", x = 11, y = 2388203437, size = 5, family = "Fira Sans Pro", colour = "#929d37") +
-    annotate("text", label = "2,17", x = 10, y = 2173810104, size = 4, colour = "gray45") +
-    annotate("text", label = "2,16", x = 7, y = 2153264313, size = 4, colour = "gray45") +
+    annotate("text", label = "2,41", x = 21, y = 2500000000, size = 5, family = "Fira Sans Pro", colour = "#929d37") +
+    annotate("text", label = "2,38", x = 20, y = 2400000000, size = 4, colour = "gray45") +
+    annotate("text", label = "2,03", x = 17, y = 2100000000, size = 4, colour = "gray45") +
     scale_x_discrete(
         limits = c(
+            "4º trimestre 2018",
+            "1º trimestre 2019",
+            "2º trimestre 2019",
+            "3º trimestre 2019",
+            "4º trimestre 2019",
+            "1º trimestre 2020",
+            "2º trimestre 2020",
+            "3º trimestre 2020",
+            "4º trimestre 2020",
             "1º trimestre 2021",
             "2º trimestre 2021",
             "3º trimestre 2021",
@@ -119,17 +127,18 @@ grafico_carcaca <- abate |>
             "4º trimestre 2022",
             "1º trimestre 2023",
             "2º trimestre 2023",
-            "3º trimestre 2023"
+            "3º trimestre 2023",
+            "4º trimestre 2023"
             )
         ) +
     guides(
-        fill = FALSE
+        fill = "none"
     ) +
     annotate( # média:1 986 839 568 ; mediana:1 984 748 758
         "text",
         label = "Média do período",
-        x = 1,
-        y = 2020000000,
+        x = 2,
+        y = 2100000000.,
         size = 4,
         colour = "gray45"
     )
@@ -139,7 +148,7 @@ grafico_carcaca
 ggsave(
     ".vscode/Images/carcaca_preliminar_4tri23.png",
     plot = grafico_carcaca,
-    dpi = 300,
-    height = 9,
-    width =  15
+    dpi = 1200,
+    #height = 9,
+    #width =  15
     )
