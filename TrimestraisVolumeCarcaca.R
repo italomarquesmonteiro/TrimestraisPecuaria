@@ -101,7 +101,8 @@ grafico_carcaca <- abate |>
         axis.title.x = element_blank(),
         panel.background = element_rect(fill = "white", color = "white"),
         plot.background = element_rect(fill = "white"),
-        line = element_blank()#,
+        line = element_blank(),
+        axis.text.x = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 8, color = "gray50", angle = 60, hjust = 1, vjust = 1),
         ) +
     annotate("text", label = "2,41", x = 21, y = 2500000000, size = 5, family = "Fira Sans Pro", colour = "#929d37") +
     annotate("text", label = "2,38", x = 20, y = 2400000000, size = 4, colour = "gray45") +
@@ -149,6 +150,6 @@ ggsave(
     ".vscode/Images/carcaca_preliminar_4tri23.png",
     plot = grafico_carcaca,
     dpi = 1200,
-    #height = 9,
-    #width =  15
+    height = 9,
+    width =  13.8
     )
