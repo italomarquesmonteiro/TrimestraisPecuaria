@@ -55,7 +55,7 @@ abates_uf <- df_uf |>
 
 ```{r}
 percentual_abates_mt <- abates_uf |>
-    dplyr::filter(uf == "Mato Grosso") |>
+    dplyr::filter(uf == "Rio Grande do Sul") |>
     #dplyr::select(trimestre, cabecas) |>
     dplyr::group_by(categoria, ano, trimestre, data_trimestre, sexo) |>
     dplyr::summarise(cabecas = sum(cabecas, na.rm = TRUE))
@@ -108,10 +108,8 @@ percentual_abates_mt |>
 
 ```{r}
 colors <- c("#929d37", "#064a81")
-title_text <- glue::glue('O percentual de participação no abate de <span style = "color:{colors[2]}">**vacas**</span><br> é superior ao abate de <span style = "color:{colors[1]}">**bois**</span> 
-há 10 anos no Rio Grande do Sul')
-caption_text <- glue::glue('*by* **Ítalo Monteiro.** *Dados:* *IBGE* (2023). *Nota:* <span style = "color:{colors[1]}">**Bois**</span> - bovino macho adulto, com 2 anos de idade ou mais. Inclui o macho não castrado (touro). <span style = "color:{colors[2]}">**Vacas**</span><br> - bovino fêmea adulta, com 2 anos de idade ou mais, independente de já ter parido ou não. Os dados são oriundos de estabelecimentos que estão sob inspeção sanitária federal, estadual ou municipal.
-')
+title_text <- glue::glue('O percentual de participação no abate de <span style = "color:{colors[2]}">**vacas**</span> é superior<br> ao abate de <span style = "color:{colors[1]}">**bois**</span> há 10 anos no Rio Grande do Sul')
+caption_text <- glue::glue('**Plot:** @italo.m.m<br> **Dados:** IBGE (2023)<br> **Nota:** <span style = "color:{colors[1]}">**Bois**</span> - bovino macho adulto, com 2 anos de idade ou mais. Inclui o macho não castrado (touro). <span style = "color:{colors[2]}">**Vacas**</span> - bovino fêmea adulta, com 2 anos de idade ou mais, independente de já ter parido ou não<br> Os dados são oriundos de estabelecimentos que estão sob inspeção sanitária federal, estadual ou municipal')
 
 grafico_rs <- percentual_abates_mt |>
   #dplyr::filter(categoria %in% c("Bois", "Vacas")) |>
@@ -187,10 +185,11 @@ grafico_rs <- percentual_abates_mt |>
   ) +
   scale_color_manual(values = colors)
 grafico_rs
-plotly::ggplotly(grafico_rs)
+#plotly::ggplotly(grafico_rs)
+#httpgd::hgd_browse()
 ```
 
 
 ```{r}
-ggsave("Images/percentual_abates_rs.png", plot = grafico_rs, dpi = 300, width = 17, height = 9)
+ggsave(".vscode/Images/percentual_abates_rs.png", plot = grafico_rs, dpi = 1200, width = 17, height = 9)
 ```
