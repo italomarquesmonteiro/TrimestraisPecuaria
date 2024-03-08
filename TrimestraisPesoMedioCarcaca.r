@@ -42,20 +42,19 @@ abate |>
     ) |> 
     dplyr::arrange(
         desc(
-            cabeca)
+            peso_car)
     )
 
 # Configurando cores, título e subtítulo para o gráfico
 colors <- c("#929d37", "#064a81", "mediumpurple1")
 title_text <- glue::glue('<span style = "color:{colors[3]}">**Peso da carcaça bovina**</span><br>entre os trimestre de 2021 a 2023')
 subtitle_text <- glue::glue("")
-caption_text <- glue::glue('**Dados preliminares:** IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2023)] | **Plot:** Ítalo Monteiro')
+caption_text <- glue::glue('**Plot:** @italo.m.m<br>**Dados preliminares:** IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2023)]')
 
 # Criando o gráfico
 grafico_peso_car <- abate |>
     dplyr::filter(
-        tipo_de_rebanho == "Bovinos" &
-            trimestre >= "1º trimestre 2021"
+        tipo_de_rebanho == "Bovinos"
     ) |>
     #dplyr::summarise(media = mean(peso_car), mediana = median(peso_car)) |>
     ggplot2::ggplot(
@@ -68,9 +67,9 @@ grafico_peso_car <- abate |>
         aes(
             fill = ifelse(
                 trimestre %in% c(
-                    "3º trimestre 2022",
-                        "2º trimestre 2023",
-                            "3º trimestre 2023"),
+                    "4º trimestre 2022",
+                        "3º trimestre 2023",
+                            "4º trimestre 2023"),
                                 "high", "default"
             )
         ),
@@ -101,38 +100,46 @@ grafico_peso_car <- abate |>
         axis.text.y = element_blank(),
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
-        #plot.margin = margin(rep(15, 4)),
+        axis.text.x = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 8, color = "gray50", angle = 60, hjust = 1, vjust = 1),
         panel.background = element_rect(fill = "white", color = "white"),
-        plot.background = element_rect(fill = "white"),
-        line = element_blank()#,
-        #rect = element_blank()
-        ) +
-    annotate("text", label = "266 kg/cab", x = 11, y = 270, size = 5, family = "Fira Sans Pro", colour = "mediumpurple1") +
-    annotate("text", label = "260", x = 10, y = 268, size = 4, colour = "gray45") +
-    annotate("text", label = "272", x = 7, y = 275, size = 4, colour = "gray45") +
+        plot.background = element_rect(fill = "white")
+    ) +
+    annotate("text", label = "266.2", x = 21, y = 272, size = 5, family = "Fira Sans Pro", colour = "mediumpurple1") +
+    annotate("text", label = "266.6", x = 20, y = 270, size = 4, colour = "gray45") +
+    annotate("text", label = "271.5", x = 17, y = 273, size = 4, colour = "gray45") +
     scale_x_discrete(
         limits = c(
+            "4º trimestre 2018",
+            "1º trimestre 2019",
+            "2º trimestre 2019",
+            "3º trimestre 2019",
+            "4º trimestre 2019",
+            "1º trimestre 2020",
+            "2º trimestre 2020",
+            "3º trimestre 2020",
+            "4º trimestre 2020",
             "1º trimestre 2021",
-                "2º trimestre 2021",
-                    "3º trimestre 2021",
-                        "4º trimestre 2021",
-                            "1º trimestre 2022",
-                                "2º trimestre 2022",
-                            "3º trimestre 2022",
-                        "4º trimestre 2022",
-                    "1º trimestre 2023",
-                "2º trimestre 2023",
-            "3º trimestre 2023"
+            "2º trimestre 2021",
+            "3º trimestre 2021",
+            "4º trimestre 2021",
+            "1º trimestre 2022",
+            "2º trimestre 2022",
+            "3º trimestre 2022",
+            "4º trimestre 2022",
+            "1º trimestre 2023",
+            "2º trimestre 2023",
+            "3º trimestre 2023",
+            "4º trimestre 2023"
             )
         ) +
     guides(
-        fill = FALSE
+        fill = "none"
     ) +
     annotate( # média:7541099 ; mediana:7382158
         "text",
-            label = "Média do período",
-                x = 1,
-                    y = 270,
+            label = "Média do período 269 kg",
+                x = 2,
+                    y = 269,
                         size = 4,
                             colour = "gray45"
     )
@@ -141,9 +148,9 @@ grafico_peso_car
 
 # Salvando o gráfico
 ggsave(
-    "Images/abate_peso_car.png",
+    ".vscode/Images/abate_peso_car.png",
         plot = grafico_peso_car,
-            dpi = 500,
+            dpi = 1200,
                 width = 13.8,
                     height = 9
     )
