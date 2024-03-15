@@ -60,8 +60,7 @@ Entretanto, ao analisar o peso médio da carcaça entre os trimestres, identific
 
 ## Temporário
 
-<img style="width:px; height:px;" src=".vscode/Images/part_ufs_abt_br.png" alt="Peso Carcaça">
-
+<img style="width:px; height:px;" src=".vscode\Images\part_ufs_abt_br.png" alt="Peso Carcaça">
 
 <img style="width:px; height:px;" src=".vscode\Images\perc_abt_boi.png" alt="Peso Carcaça">
 
