@@ -34,6 +34,10 @@ Os dados do 4º trimestre de 2023 podem ser acessados [aqui](https://sidra.ibge.
 > [!NOTE]
 > Os dados dos 4º trimestres do ano são preliminares até a divulgação dos dados do 1° trimestre do ano seguinte.
 
+## Quantitativos anuais
+
+ <img style="width700:px; height:px;" src=".vscode/Images/EvolAbateCategoria1.png" alt="Evolução Abate">
+
 ## Cabeças Abatidas
 
 No 4º trimestre de 2023, o abate bovino registrou um total de 9,05 milhões de cabeças, representando um aumento de 1,3% em relação ao trimestre anterior e um notável crescimento de 19,9% em comparação com o mesmo período de 2022.
