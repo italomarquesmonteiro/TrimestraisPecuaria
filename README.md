@@ -29,12 +29,24 @@ Este projeto quantifica a quantidade total de animais abatidos e o peso total da
 
 ## Dados
 
-Os dados do 4º trimestre de 2023 podem ser acessados [aqui](https://sidra.ibge.gov.br/tabela/6829)
+Vocês podem ter acesso às bases públicas do IBGE acessando o ambiente [Sidra](https://sidra.ibge.gov.br/home/pms/brasil). Os dados do 4º trimestre de 2023, bem como a série histórica, podem ser acessados [aqui](https://sidra.ibge.gov.br/tabela/1092)
 
 > [!NOTE]
 > Os dados dos 4º trimestres do ano são preliminares até a divulgação dos dados do 1° trimestre do ano seguinte.
 
-## Quantitativos anuais
+## 📈 Abate de bovinos em 2023! 📊
+
+📅 No dia 14, o IBGE divulgou os resultados completos do abate para o 4º trimestre de 2023. No decorrer de 2023, foram abatidas 34,06 milhões de cabeças bovinas, marcando o segundo maior registro desde o início da série histórica, sendo o maior registro de 34,41 milhões de cabeças em 2013.
+
+📊 Dos 34,06 milhões de cabeças abatidas em 2023, a composição foi a seguinte:
+
+🐮 53,64% bois;
+
+🐮 29,33% vacas;
+
+🐮 12,27% novilhas;
+
+🐮 4,76% novilhos.
 
  <img style="width700:px; height:px;" src=".vscode/Images/EvolAbateCategoria1.png" alt="Evolução Abate">
 
