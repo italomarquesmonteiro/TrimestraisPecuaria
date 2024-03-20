@@ -1,25 +1,11 @@
 ---
-title: "Abate bovino no Rio Grande do Sul 2º trimestre "
-description: "Quantitativo por categoria atualizado em  06 de setembro de 2023 pelo IBGE"
-author: 
-    - name: "Ítalo Marques-Monteiro"
-    - email: "italo.marques.monteiro@outlook.com"
-    - github: https://github.com/italomarquesmonteiro
-    - kaggle: https://www.kaggle.com/talomarquesmonteiro
-    - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
-    - lattes: http://lattes.cnpq.br/7174985368517137
-    - orcid_id: https://orcid.org/0000-0003-4367-1034
-    - affiliation: Smart Data  
-        
+title: "Abate bovino"
+description: ""
+author: "Ítalo Marques-Monteiro"      
 date: "2023-09-11"
 output: html_document
 ---
 
-Informações:
-[IBGE](https://www.ibge.gov.br/)
-[Comunidado](https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/37828-cresce-o-abate-de-bovinos-e-frangos-e-cai-o-de-suinos-no-2-tri-de-2023)
-[Dados](https://sidra.ibge.gov.br/tabela/1092)
-"/t/1092/n3/all/v/284/p/last%201/c12716/115236/c18/55,56,111734,111735/c12529/118225"
 ```{r}
 library(tidyverse)
 ```
@@ -49,24 +35,21 @@ per_abt_total <- ufs |>
     dplyr::mutate(perc2 = scales::percent(total / 9075548, accuracy = .1, trim = FALSE)) |>
     dplyr::arrange(desc(perc2))
 
+font <- "Josefin Sans"
+font2 <- "Open Sans"
 
-#test1 <- per_abt_total #|>
-    #dplyr::mutate(
-    #    color = case_when(
-    #      row_number() == 1 ~ "goldenrod1",
-    #      row_number() == 2 ~ "mediumpurple1",
-    #      row_number() == 3 ~ "coral2",
-    #      ## all others should be gray
-    #      TRUE ~ "gray70"),
-    #    color = forcats::as_factor(color))
-
-
+# Use the font_add_google() function to load fonts from the web
+sysfonts::font_add_google(family=font, font, db_cache = FALSE)
+sysfonts::font_add_google(family=font2, font2, db_cache = FALSE)
 
 sysfonts::font_add(family = "Font Awesome 6 Brands", regular = "C:/Users/italo/AppData/Local/Microsoft/Windows/Fonts/Font Awesome 6 Brands-Regular-400.otf") # nolint
-showtext::showtext_auto()
+
+theme_set(theme_minimal(base_family = font2, base_size = 3))
+
 showtext::showtext_opts(dpi = 300)
+showtext::showtext_auto(enable = TRUE)
 bg <- "white"
-txt_col <- "black"
+txt_col <- "grey90"
 github_icon <- "&#xf09b"
 linkedin_icon <- "&#xf0e1"
 x_icon <- "&#xf099"
@@ -76,62 +59,66 @@ linkedin_username <- "italomarquesmonteiro"
 x_username <- "italommonteiro"
 instagram_username <- "italo.m.m"
 colors <- "grey40"
-title_text <- glue::glue('Participação das UFs no <span style="color:{colors}">**abate total**</span> de bovinos') # nolint
+title_text <- glue::glue('Participação das UF no abate total de bovinos') # nolint
 subtitle_text <- glue::glue("")
 caption_text <- glue::glue(
   "**Dados:**  IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2024)]<br>", # nolint
-  "**Nota:** As unidades da federação, Amapá, Distritio Federal e Paraíba não apresentaram dados<br>",
+  #"**Nota:** As Unidades da Federação, Amapá, Distrito Federal e Paraíba não apresentaram dados<br>",
   "**Plot:** Ítalo Marques-Monteiro <br><br>",
-  "<span style='font-family:\"Font Awesome 6 Brands\"; color: black;'>{github_icon};</span> 
-  <span style='color: black'>{github_username}</span><br>",
-  "<span style='font-family:\"Font Awesome 6 Brands\"; color: dodgerblue4;'>{linkedin_icon};</span> 
-  <span style='color: black'>{linkedin_username}</span><br>",
+  "<span style='font-family:\"Font Awesome 6 Brands\"; color: white;'>{github_icon};</span> 
+  <span style='color: grey90'>{github_username}</span><br>",
+  "<span style='font-family:\"Font Awesome 6 Brands\"; color: #1a96fc;'>{linkedin_icon};</span> 
+  <span style='color: grey90'>{linkedin_username}</span><br>",
   "<span style='font-family:\"Font Awesome 6 Brands\"; color: steelblue;'>{x_icon};</span>
-  <span style='color: black'>{x_username}</span><br>",
-  "<span style='font-family:\"Font Awesome 6 Brands\"; color: red;'>{instagram_icon};</span>
-  <span style='color: black'>{instagram_username}</span>"
+  <span style='color: grey90'>{x_username}</span><br>",
+  "<span style='font-family:\"Font Awesome 6 Brands\"; color: #fd5257;'>{instagram_icon};</span>
+  <span style='color: grey90'>{instagram_username}</span>"
 )
+
+fundo <- "#283d44"
 
 part_ufs_abt_br <- per_abt_total |>
     dplyr::mutate(
         color = case_when(
-          row_number() == 1 ~ "goldenrod1",
-          row_number() == 2 ~ "mediumpurple1",
-          row_number() == 3 ~ "coral2",
-          ## all others should be gray
+          row_number() == 1 ~ "#1a96fc",
+          row_number() == 2 ~ "#fd9850",
+          row_number() == 3 ~ "#f8b83c",
+          ## all others should be gray      
           TRUE ~ "gray70"),
         color = forcats::as_factor(color)
     ) |>
     ggplot(aes(x = percent, y = reorder(uf, percent))) +
-        geom_col(aes(fill = color))+
+        geom_col(aes(fill = color), color = "grey50", size = 1, width = 0.8)+
         scale_fill_identity(guide = "none") +
         geom_text(mapping = aes(label = scales::percent(percent, accuracy = 0.1)),
              position = position_dodge(0.9),
-             size = 3.5,
-             color = "gray20",
+             family = font,
+             fontface = "bold",
+             size = 4,
+             color = "gray90",
              vjust = 0.5,
-              hjust = 0.01) +
+              hjust = -0.3) +
         theme_void() +
         labs(
             title = title_text,
             subtitle = "4º trimestre de 2023",
             caption = caption_text) +
         theme(
-            plot.title = ggtext::element_markdown(color = "gray30", face = "bold", size = 25, hjust = 0.1),
-            plot.subtitle = element_text(family = "italic", size = 15, color = "gray50", hjust = 0.1),
-            plot.caption = ggtext::element_markdown(hjust = 0, margin = margin(10,0,0,0), size = 8, color = txt_col, lineheight = 1.2), # nolint
-            axis.text.y = element_text(color = "gray40", size = 12, hjust = 1, family = "Fira Sans"),
+            plot.title = ggtext::element_markdown(face = "bold", family = font, color = "gray90", size = 25, hjust = 0.1),
+            plot.subtitle = element_text(family = font2, size = 15, color = "gray70", hjust = 0.1),
+            plot.caption = ggtext::element_markdown(family = font2, hjust = 0, margin = margin(10,0,0,0), size = 8, color = txt_col, lineheight = 1.2), # nolint
+            axis.text.y = element_text(family = font2, face = "bold", color = "gray60", size = 12, hjust = 1),
             plot.margin = margin(rep(15, 4)),
-            panel.background = element_rect(fill = "white", color = "white"),
-            plot.background = element_rect(fill = "white")
-        )
+            panel.background = element_rect(fill = fundo, color = fundo),
+            plot.background = element_rect(fill = fundo)
+        ) 
 
 abt_ufs <- data.frame(image = ".vscode/Images/mapa_abt_ufs.png") 
 
 part_ufs_abt_br <- part_ufs_abt_br +
     ggimage::geom_image(aes(x = 0.10, y = 10, image = image), data = abt_ufs,  size = 1)  # nolint
-
-ggsave(".vscode/Images/part_ufs_abt_br.png", plot = part_ufs_abt_br, dpi = 300)
+part_ufs_abt_br
+ggsave(".vscode/Images/part_ufs_abt_br.png", plot = part_ufs_abt_br, width = 12.5, dpi = 300)
 ```
 
 
@@ -239,9 +226,7 @@ ggsave(".vscode/Images/perc_abate_vaca.png", plot = perc_abate_vaca, dpi = 300)
 ```
 
 
-
 Participação de bois no abate nacional
-
 ```{r}
 ufs_boi <- ufs |>
     dplyr::filter(categoria == "Bois") |>
@@ -343,10 +328,7 @@ ggsave(".vscode/Images/perc_abt_boi.png", plot = perc_abt_boi, dpi = 300)
 ```
 
 
-
-
 Participação de novilhas no abate nacional
-
 ```{r}
 ufs_novilha <- ufs |>
     dplyr::filter(categoria == "Novilhas") |>
@@ -445,9 +427,7 @@ perc_abt_novilha <- perc_abt_novilha +
 ggsave(".vscode/Images/perc_abt_novilha.png", plot = perc_abt_novilha, dpi = 300)
 ```
 
-
 Participação de novilhos no abate nacional
-
 ```{r}
 ufs_novilho <- ufs |>
     dplyr::filter(categoria == "Novilhos") |>
@@ -564,34 +544,42 @@ ro <- br |> dplyr::filter(abbrev_state == "RO")
 sc <- br |> dplyr::filter(abbrev_state == "SC")
 
 
-mapa_abt_novilho <- br |>
+"#1a96fc"
+"#fd9850"
+"#f8b83c"
+
+mapa_abt_ufs <- br |>
     ggplot2::ggplot() +
+
         geom_sf(
             fill = "gray70",
             color = "gray30",
-            size = .15,
+            size = 1,
             show.legend = FALSE) +
-        geom_sf(data = rs,
+        geom_sf(data = mt,
         
-            fill = "goldenrod1",
-            color = "gray30",
-            size = .15,
+            fill = "#1a96fc",
+            color = "black",
+            size = 2,
             show.legend = FALSE) +
-        geom_sf(data = ms,
-            fill = "mediumpurple1",
-            color = "gray30",
-            size = .15,
+
+        geom_sf(data = sp,
+            fill = "#fd9850",
+            color = "black",
+            size = 1,
             show.legend = FALSE) +
-        geom_sf(data = sc,
-            fill = "coral2",
-            color = "gray30",
-            size = .15,
+
+        geom_sf(data = go,
+            fill = "#f8b83c",
+            color = "black",
+            size = 1,
             show.legend = FALSE) +
+
         theme_void() +
         theme(
             panel.background = element_blank(),
             plot.background = element_blank()
         )
-mapa_abt_novilho
-ggsave(".vscode/Images/mapa_abt_novilho.png", plot = mapa_abt_novilho, dpi = 300)
+mapa_abt_ufs
+ggsave(".vscode/Images/mapa_abt_ufs.png", plot = mapa_abt_ufs, dpi = 300)
 ```
