@@ -5,7 +5,7 @@
 
 ##
 
-<img style="width:600px; height:250px;" src=".vscode\Images\Carcaça-Bovina.jpg" alt="Logo IBGE">
+<img style="width:600px; height:250px;" src=".vscode\Images\Logo\Carcaça-Bovina.jpg" alt="Logo IBGE">
 
 # Contatos do autor
 
@@ -48,7 +48,7 @@ Vocês podem ter acesso às bases públicas do IBGE acessando o ambiente [Sidra]
 
 🐮 4,76% novilhos.
 
- <img style="width700:px; height:px;" src=".vscode/Images/EvolAbateCategoria1.png" alt="Evolução Abate">
+ <img style="width700:px; height:px;" src=".vscode\Images\Trimestrais\EvolAbateCategoria1.png" alt="Evolução Abate">
 
 
 ## 📊 Participações no Abate Bovino - 4º Trimestre de 2023 📈
@@ -70,31 +70,30 @@ Ao analisar por unidades da Federação, observa-se que o Mato Grosso liderou o 
 
 - Abate por unidades da Federação:
 
- <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_ufs.png" alt="Abate por UF">
+ <img style="width700:px; height:px;" src=".vscode\Images\Percentage\perc_abt_ufs.png" alt="Abate por UF">
 
 - Percentual de bois:
 
- <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_boi.png" alt="Abate bois">
+ <img style="width700:px; height:px;" src=".vscode\Images\Percentage\perc_abt_boi.png" alt="Abate bois">
 
  - Percentual de novilhos:
 
- <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_novilho.png" alt="Abate novilhos">
+ <img style="width700:px; height:px;" src=".vscode\Images\Percentage\perc_abt_novilho.png" alt="Abate novilhos">
 
  - Percentual de vacas:
 
- <img style="width700:px; height:px;" src=".vscode\Images\perc_abate_vaca.png" alt="Abate vacas">
+ <img style="width700:px; height:px;" src=".vscode\Images\Percentage\perc_abate_vaca.png" alt="Abate vacas">
 
  - Percentual de novilhas:
 
- <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_novilha.png" alt="Abate novilhas">
+ <img style="width700:px; height:px;" src=".vscode\Images\Percentage\perc_abt_novilha.png" alt="Abate novilhas">
 
 ## Cabeças Abatidas
 
 No 4º trimestre de 2023, o abate bovino registrou um total de 9,05 milhões de cabeças, representando um aumento de 1,3% em relação ao trimestre anterior e um notável crescimento de 19,9% em comparação com o mesmo período de 2022.
 
-* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisAbate.R)
 
- <img style="width700:px; height:px;" src=".vscode\Images\abate_preliminar_4tri23.png" alt="Abate 4º tri 2023">
+ <img style="width700:px; height:px;" src=".vscode\Images\Trimestrais\abate_cab_4tri23.png" alt="Abate 4º tri 2023">
 
 ## Volume de carcaça
 
@@ -122,4 +121,4 @@ Destaca-se que o ápice na participação percentual de abate ocorreu com os nov
 
 * Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/PercentualAbateRS.rmd)
 
-<img style="width:px; height:px;" src=".vscode\Images\percentual_abates_rs.png" alt="Abate-RS">
+<img style="width:px; height:px;" src=".vscode\Images\Percentage\percentual_abates_rs.png" alt="Abate-RS">
