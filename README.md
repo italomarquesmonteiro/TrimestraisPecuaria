@@ -50,9 +50,8 @@ Vocês podem ter acesso às bases públicas do IBGE acessando o ambiente [Sidra]
 
  <img style="width700:px; height:px;" src=".vscode/Images/EvolAbateCategoria1.png" alt="Evolução Abate">
 
-## Participações no abate bovino
 
-📊 Participações no Abate Bovino - 4º Trimestre de 2023 📈
+## 📊 Participações no Abate Bovino - 4º Trimestre de 2023 📈
 
 
 No último trimestre de 2023, o abate bovino foi composto por 58,4% de machos e 41,6% de fêmeas, de acordo com os dados divulgados pelo IBGE.
