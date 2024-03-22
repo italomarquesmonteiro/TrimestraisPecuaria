@@ -113,19 +113,6 @@ Entretanto, ao analisar o peso médio da carcaça entre os trimestres, identific
 
 <img style="width:px; height:px;" src=".vscode\Images\abate_peso_car.png" alt="Peso Carcaça">
 
-## Temporário
-
-<img style="width:px; height:px;" src=".vscode\Images\part_ufs_abt_br.png" alt="Peso Carcaça">
-
-<img style="width:px; height:px;" src=".vscode\Images\perc_abt_boi.png" alt="Peso Carcaça">
-
-<img style="width:px; height:px;" src=".vscode\Images\perc_abt_novilho.png" alt="Peso Carcaça">
-
-<img style="width:px; height:px;" src=".vscode\Images\perc_abate_vaca.png" alt="Peso Carcaça">
-
-<img style="width:px; height:px;" src=".vscode\Images\perc_abt_novilha.png" alt="Peso Carcaça">
-
-
 ## Variações da composição de abate no Rio Grande do Sul
 
 A análise da cronologia dos dados de abate bovino no Rio Grande do Sul revela uma tendência de maior participação de vacas, com uma média histórica de 35,3%, seguida por novilhos (28,6%), bois (27,1%) e novilhas (7,21%).
