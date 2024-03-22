@@ -88,28 +88,26 @@ Ao analisar por unidades da Federação, observa-se que o Mato Grosso liderou o 
 
  <img style="width700:px; height:px;" src=".vscode\Images\Percentage\perc_abt_novilha.png" alt="Abate novilhas">
 
-## Cabeças Abatidas
+## 🐮 Cabeças Abatidas 
 
 No 4º trimestre de 2023, o abate bovino registrou um total de 9,05 milhões de cabeças, representando um aumento de 1,3% em relação ao trimestre anterior e um notável crescimento de 19,9% em comparação com o mesmo período de 2022.
 
 
  <img style="width700:px; height:px;" src=".vscode\Images\Trimestrais\abate_cab_4tri23.png" alt="Abate 4º tri 2023">
 
-## Volume de carcaça
+## 🥩 Volume de carcaça
 
 A produção de carcaça bovina atingiu um marco histórico, alcançando 2,41 milhões de toneladas no 4º trimestre de 2023.
 
-* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisVolumeCarcaca.R)
 
-<img style="width:px; height:px;" src=".vscode\Images\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
+<img style="width:px; height:px;" src=".vscode\Images\Temporary\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
 
 ## Peso Médio da carcaça bovina
 
 Entretanto, ao analisar o peso médio da carcaça entre os trimestres, identificamos a influência do ciclo pecuário. A presença significativa de fêmeas no abate contribuiu para uma redução no peso médio da carcaça bovina, que foi de 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023. Esse fenômeno reflete a dinâmica do setor e ressalta a importância de considerar o ciclo pecuário ao interpretar as variações no peso médio da carcaça.
 
-* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/TrimestraisPesoMedioCarcaca.r)
 
-<img style="width:px; height:px;" src=".vscode\Images\abate_peso_car.png" alt="Peso Carcaça">
+<img style="width:px; height:px;" src=".vscode\Images\Temporary\abate_peso_car.png" alt="Peso Carcaça">
 
 ## Variações da composição de abate no Rio Grande do Sul
 
@@ -119,6 +117,5 @@ No período de 1997 a 2023, a participação de vacas em relação aos bois foi 
 
 Destaca-se que o ápice na participação percentual de abate ocorreu com os novilhos, alcançando 50,2% no 4º trimestre de 2001. 
 
-* Para acessar o código da contrução do gráfico abaixo,  [click aqui](https://github.com/italomarquesmonteiro/TrimestraisPecuaria/blob/main/PercentualAbateRS.rmd)
 
 <img style="width:px; height:px;" src=".vscode\Images\Percentage\percentual_abates_rs.png" alt="Abate-RS">
