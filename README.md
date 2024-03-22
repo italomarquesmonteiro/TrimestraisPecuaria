@@ -50,6 +50,45 @@ Vocês podem ter acesso às bases públicas do IBGE acessando o ambiente [Sidra]
 
  <img style="width700:px; height:px;" src=".vscode/Images/EvolAbateCategoria1.png" alt="Evolução Abate">
 
+## Participações no abate bovino
+
+📊 Participações no Abate Bovino - 4º Trimestre de 2023 📈
+
+
+No último trimestre de 2023, o abate bovino foi composto por 58,4% de machos e 41,6% de fêmeas, de acordo com os dados divulgados pelo IBGE.
+
+Ao analisar por unidades da Federação, observa-se que o Mato Grosso liderou o ranking de participação no abate durante esse período. Ao estratificar a participação por categorias, o Mato Grosso manteve proeminência no abate de bois, vacas e novilhas. Por sua vez, o Rio Grande do Sul foi o estado que mais abateu novilhos (39,4%).
+
+🥩 Outros destaques incluem:
+
+📍 MT, SP e GO representaram 41,5% do abate de bois;
+
+📍 MT, PA e GO representaram 38% do abate de vacas;
+
+📍 MT, MS e RO representaram 56,8% do abate de novilhas;
+
+📍 RS, MS e SC representaram 84,1% do abate de novilhos.
+
+- Abate por unidades da Federação:
+
+ <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_ufs.png" alt="Abate por UF">
+
+- Percentual de bois:
+
+ <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_boi.png" alt="Abate bois">
+
+ - Percentual de novilhos:
+
+ <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_novilho.png" alt="Abate novilhos">
+
+ - Percentual de vacas:
+
+ <img style="width700:px; height:px;" src=".vscode\Images\perc_abate_vaca.png" alt="Abate vacas">
+
+ - Percentual de novilhas:
+
+ <img style="width700:px; height:px;" src=".vscode\Images\perc_abt_novilha.png" alt="Abate novilhas">
+
 ## Cabeças Abatidas
 
 No 4º trimestre de 2023, o abate bovino registrou um total de 9,05 milhões de cabeças, representando um aumento de 1,3% em relação ao trimestre anterior e um notável crescimento de 19,9% em comparação com o mesmo período de 2022.
