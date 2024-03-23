@@ -95,12 +95,12 @@ No 4º trimestre de 2023, o abate bovino registrou um total de 9,05 milhões de 
 
  <img style="width700:px; height:px;" src=".vscode\Images\Trimestrais\abate_cab_4tri23.png" alt="Abate 4º tri 2023">
 
-## 🥩 Volume de carcaça
+## 🥩 Volume de carcaça 
 
 A produção de carcaça bovina atingiu um marco histórico, alcançando 2,41 milhões de toneladas no 4º trimestre de 2023.
 
 
-<img style="width:px; height:px;" src=".vscode\Images\Temporary\carcaca_preliminar_4tri23.png" alt="Carcaça 4º tri 2023">
+<img style="width:px; height:px;" src=".vscode\Images\Trimestrais\carcaca_4tri23.png" alt="Carcaça 4º tri 2023">
 
 ## Peso Médio da carcaça bovina
 
