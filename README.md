@@ -97,17 +97,17 @@ No 4º trimestre de 2023, o abate bovino registrou um total de 9,05 milhões de 
 
 ## 🥩 Volume de carcaça 
 
-A produção de carcaça bovina atingiu um marco histórico, alcançando 2,41 milhões de toneladas no 4º trimestre de 2023.
+A produção de carcaça bovina atingiu um marco histórico, alcançando 2,43 milhões de toneladas no 4º trimestre de 2023.
 
 
 <img style="width:px; height:px;" src=".vscode\Images\Trimestrais\carcaca_4tri23.png" alt="Carcaça 4º tri 2023">
 
 ## Peso Médio da carcaça bovina
 
-Entretanto, ao analisar o peso médio da carcaça entre os trimestres, identificamos a influência do ciclo pecuário. A presença significativa de fêmeas no abate contribuiu para uma redução no peso médio da carcaça bovina, que foi de 271,5 kg no 4º trimestre de 2022, 266,6 kg no 3º trimestre de 2023 e 266,2 kg no 4º trimestre de 2023. Esse fenômeno reflete a dinâmica do setor e ressalta a importância de considerar o ciclo pecuário ao interpretar as variações no peso médio da carcaça.
+Entretanto, ao analisar o peso médio da carcaça entre os trimestres, identificamos a influência do ciclo pecuário. A presença significativa de fêmeas no abate contribuiu para uma redução no peso médio da carcaça bovina, que foi de 270,3 kg no 4º trimestre de 2022, 266,3 kg no 3º trimestre de 2023 e 265,6 kg no 4º trimestre de 2023. Esse fenômeno reflete a dinâmica do setor e ressalta a importância de considerar o ciclo pecuário ao interpretar as variações no peso médio da carcaça.
 
 
-<img style="width:px; height:px;" src=".vscode\Images\Temporary\abate_peso_car.png" alt="Peso Carcaça">
+<img style="width:px; height:px;" src=".vscode\Images\Trimestrais\abate_peso_car.png" alt="Peso Carcaça">
 
 ## Variações da composição de abate no Rio Grande do Sul
 
