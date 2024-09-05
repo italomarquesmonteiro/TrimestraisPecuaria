@@ -234,7 +234,7 @@ bg <- "white"
 txt_col <- "grey70"
 colors <- "gray40"
 title_text1 <- glue::glue("Percentual de Abate de Fêmeas:")
-subtitle_text1 <- glue::glue("Comportamento por trimestre da Participação de fêmeas sobre o total abatido")
+subtitle_text1 <- glue::glue("Comportamento agrupado por trimestre da participação de fêmeas sobre o total abatido")
 caption_text1 <- glue::glue(
   "**Dados:**  IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2024)]<br>",
   "**Nota:** Média do período: 37.9%<br>",
@@ -310,8 +310,58 @@ part_abt_femeas_tri <- percentual_abate_trimestral |>
 ggsave(
     ".github\\.vscode\\Trimestrais\\Percentual de participação trimestral do abate de fêmeas.png",
     plot = part_abt_femeas_tri,
-    #width = ,
-    #height = ,
+    #width = 20,
+    #height = 9.9 ,
+    dpi = 300
+    )
+```
+
+
+```{r}
+# Criar uma nova coluna trimestre_ano combinando o trimestre e o ano
+percentual_abate_trimestral <- percentual_abate_trimestral |>
+  mutate(trimestre_ano = paste(trimestre, ano))  # Combina trimestre e ano
+
+# Definir os níveis da nova coluna com base na ordem cronológica correta
+percentual_abate_trimestral <- percentual_abate_trimestral |>
+  mutate(trimestre_ano = factor(trimestre_ano, 
+                                levels = unique(paste(trimestre, ano))))
+
+# Agora, gerar o gráfico usando essa nova coluna `trimestre_ano` como eixo x
+part_abt_femeas_tri1 <- percentual_abate_trimestral |>
+  dplyr::filter(sexo == "Fêmea") |>  # Filtrar apenas os dados de fêmeas
+  ggplot(aes(x = trimestre_ano, y = percentual, fill = as.factor(trimestre_ano))) +  # Usar a nova coluna como eixo x
+  ggchicklet::geom_chicklet(color = "grey40") +  # Barras arredondadas
+  geom_hline(yintercept = percentual_medio_periodo_tri, linetype = 3, color = "grey50") +
+  scale_fill_manual(values = pal) +  # Aplicar a paleta de cores
+  labs(
+    title = title_text1,
+    subtitle = subtitle_text1,
+    caption = caption_text1
+  ) +
+  theme(
+    plot.title = ggtext::element_markdown(face = "bold", family = font3, size = 40, color = "gray80", hjust = 0.1),
+    plot.subtitle = element_text(face = "italic", family = font2, size = 18, color = "gray70", hjust = 0.1),
+    plot.caption = ggtext::element_markdown(face = "bold", family = font, size = 9, color = txt_col, hjust = 0, margin = margin(10, 20, 20, 20),  lineheight = 1.2),
+    panel.background = element_rect(fill = "grey25", color = "grey25"),
+    panel.grid = element_line(color = "grey25"),
+    panel.grid.major.y = element_line(color = "grey25", size = 0.5, linetype = 1),
+    panel.grid.minor.y = element_line(color = "grey25", size = 0.5, linetype = 1),
+    plot.background = element_rect(fill = "grey25"),
+    legend.position = "none",
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = ggtext::element_markdown(face = "bold", family = font2, size = 8, color = "gray40", angle = 90, hjust = 1, vjust = 0.5),
+    axis.ticks.length.x = unit(-0.8, "cm"),
+    axis.ticks.x = element_line(color = "grey40", size = 1)
+  )
+
+ggsave(
+    ".github\\.vscode\\Trimestrais\\Percentual de participação trimestral do abate de fêmeas1.png",
+    plot = part_abt_femeas_tri1,
+    #width = 20,
+    #height = 9.9 ,
     dpi = 300
     )
 ```
