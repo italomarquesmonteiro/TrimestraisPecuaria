@@ -1,0 +1,219 @@
+---
+title: "Cabeças Abatidas"
+description: "Número de animais guiados para abate sob algum serviço de inspeção"
+author script: 
+  - name: "Ítalo Marques-Monteiro"
+    github: https://github.com/italomarquesmonteiro
+    kaggle: https://www.kaggle.com/talomarquesmonteiro
+    linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    lattes: http://lattes.cnpq.br/7174985368517137
+    orcid_id: https://orcid.org/0000-0003-4367-1034
+    affiliation: Smart Data  
+        
+date: "2024-09-05"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+Abate por categoria, BR
+```{r}
+base_original <- sidrar::get_sidra(
+    api = "/t/1092/n1/all/v/284,285/p/all/c12716/115236/c18/55,56,111734,111735/c12529/118225") |>
+    janitor::clean_names("snake") |>
+    dplyr::glimpse()
+```
+
+```{r}
+abt <- base_original |>
+    dplyr::select(
+        valor,
+        categoria = tipo_de_rebanho_bovino,
+        data_trimestre = trimestre_codigo,
+        trimestre,
+        variavel
+    ) |>
+    dplyr::mutate(
+        data_trimestre = lubridate::yq(data_trimestre),
+        ano = lubridate::year(data_trimestre)
+    ) |>
+    tidyr::pivot_wider(
+        names_from = variavel,
+        values_from = valor
+    ) |>
+    dplyr::rename(
+        cabeca = `Animais abatidos`,
+        carcaca = `Peso total das carcaças`
+    ) |>
+    dplyr::mutate(
+        peso_car = carcaca / cabeca
+    ) |>
+    dplyr::glimpse()
+```
+
+```{r}
+# Criando uma nova coluna para identificar machos e fêmeas
+abt <- abt |>
+  mutate(
+    sexo = case_when(
+      categoria %in% c("Bois", "Novilhos") ~ "Macho",
+      categoria %in% c("Vacas", "Novilhas") ~ "Fêmea"
+    )
+  )
+
+# Calculando o total de cabeças por gênero e o percentual
+percentual_abate <- abt |>
+  group_by(ano, sexo) |>
+  summarise(
+    total_cabeca = sum(cabeca),
+    .groups = 'drop'
+  ) |>
+  group_by(ano) |>
+  mutate(
+    total_geral = sum(total_cabeca),
+    percentual = (total_cabeca / total_geral) * 100
+  )
+
+print(percentual_abate) |> tail(10)
+
+# Definindo as cores base
+cores_base <- c("#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600")
+
+# Gerando uma paleta com 28 cores
+pal <- colorRampPalette(cores_base)(28)
+
+# Criando o gráfico com percentual de fêmeas abatidas
+percentual_abate |>
+  dplyr::filter(sexo == "Fêmea") |>  # Filtrar apenas os dados de fêmeas
+  ggplot(aes(x = as.factor(ano), y = percentual, fill = as.factor(ano))) +  # Criar o gráfico de barras
+  ggchicklet::geom_chicklet(position = "dodge", width = 0.7) +  # Barras arredondadas
+  geom_text(aes(label = percentual), position = position_dodge(width = 0.7), vjust = -0.5) +
+  scale_fill_manual(values = pal) +  # Aplicar a paleta de cores
+  labs(
+    title = "Percentual de Abate de Fêmeas por Ano",
+    x = "Ano",
+    y = "Percentual de Fêmeas Abatidas (%)",
+    fill = "Ano"
+  ) +
+  theme(
+    legend.position = "none"
+  ) 
+```
+
+```{r}
+library(ggplot2)
+library(ggchicklet)
+library(dplyr)
+
+# Criando a nova coluna para identificar machos e fêmeas
+abt <- abt |>
+  mutate(
+    sexo = case_when(
+      categoria %in% c("Bois", "Novilhos") ~ "Macho",
+      categoria %in% c("Vacas", "Novilhas") ~ "Fêmea"
+    )
+  )
+
+# Calculando o total de cabeças por gênero e o percentual
+percentual_abate <- abt |>
+  group_by(ano, sexo) |>
+  summarise(
+    total_cabeca = sum(cabeca),
+    .groups = 'drop'
+  ) |>
+  group_by(ano) |>
+  mutate(
+    total_geral = sum(total_cabeca),
+    percentual = (total_cabeca / total_geral) * 100
+  )
+
+
+
+# Adicionar fontes
+font <- "Josefin Sans"
+font2 <- "Open Sans"
+font3 <- "Permanent Marker"
+sysfonts::font_add_google(family = font, font, db_cache = FALSE)
+sysfonts::font_add_google(family = font2, font2, db_cache = FALSE)
+sysfonts::font_add_google(family = font3, font3, db_cache = FALSE)
+sysfonts::font_add(family = "Font Awesome 6 Brands", regular = "C:/Users/italo/AppData/Local/Microsoft/Windows/Fonts/Font Awesome 6 Brands-Regular-400.otf")
+showtext::showtext_opts(dpi = 300)
+showtext::showtext_auto(enable = TRUE)
+
+github_icon <- "&#xf09b"
+linkedin_icon <- "&#xf0e1"
+x_icon <- "&#xf099"
+instagram_icon <- "&#xf16d"
+github_username <- "italomarquesmonteiro"
+linkedin_username <- "italomarquesmonteiro"
+x_username <- "italommonteiro"
+instagram_username <- "italo.m.m"
+
+bg <- "white"
+txt_col <- "grey70"
+colors <- "gray40"
+title_text <- glue::glue("Percentual de Abate de Fêmeas por Ano")
+subtitle_text <- glue::glue("Participação anual de fêmeas sobre o total abatido")
+caption_text <- glue::glue(
+  "**Dados:**  IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2024)]<br>",
+  #"**Nota:**<br>",
+  "**Plot:** Ítalo Marques-Monteiro <br><br>",
+  "<span style='font-family:\"Font Awesome 6 Brands\"; color: white;'>{github_icon};</span> 
+  <span style='color: grey70'>{github_username}</span><br>",
+  "<span style='font-family:\"Font Awesome 6 Brands\"; color: skyblue;'>{linkedin_icon};</span> 
+  <span style='color: grey70'>{linkedin_username}</span><br>",
+  "<span style='font-family:\"Font Awesome 6 Brands\"; color: steelblue;'>{x_icon};</span>
+  <span style='color: grey70'>{x_username}</span><br>",
+  "<span style='font-family:\"Font Awesome 6 Brands\"; color: red;'>{instagram_icon};</span>
+  <span style='color: grey70'>{instagram_username}</span>"
+)
+
+
+# Definindo as cores base
+cores_base <- c("#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600")
+
+# Gerando uma paleta com 28 cores
+pal <- colorRampPalette(cores_base)(28)
+
+# Criando o gráfico com percentual de fêmeas abatidas
+part_abt_femeas <- percentual_abate |>
+  dplyr::filter(sexo == "Fêmea") |>  # Filtrar apenas os dados de fêmeas
+  ggplot(aes(x = as.factor(ano), y = percentual, fill = as.factor(ano))) +  # Criar o gráfico de barras
+  ggchicklet::geom_chicklet(position = "dodge", width = 0.7) +  # Barras arredondadas
+  geom_text(aes(label = sprintf("%.1f", percentual)), position = position_dodge(width = 0.7), vjust = -0.5) +  # Adicionar labels com uma casa decimal
+  scale_fill_manual(values = pal) +  # Aplicar a paleta de cores
+  labs(
+    title = "Percentual de Abate de Fêmeas por Ano",
+    x = "Ano",
+    y = "Percentual de Fêmeas Abatidas (%)",
+    fill = "Ano"
+  ) +
+  theme(
+    plot.title = ggtext::element_markdown(face = "bold", family = font3, size = 40, color = "gray80", hjust = 0.1),
+    plot.subtitle = element_text(face = "italic", family = font2, size = 18, color = "gray70", hjust = 0.1),
+    plot.caption = ggtext::element_markdown(face = "bold", family = font, size = 9, color = txt_col, hjust = 0, margin = margin(10, 20, 20, 20),  lineheight = 1.2),
+    panel.background = element_rect(fill = "grey25", color = "grey25"),
+    panel.grid = element_line(color = "grey25"),
+    panel.grid.major.y = element_line(color = "grey50", size = 0.5, linetype = 3),
+    panel.grid.minor.y = element_line(color = "grey60", size = 0.5, linetype = 3),
+    plot.background = element_rect(fill = "grey25"),
+    legend.position = "none",
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = ggtext::element_markdown(face = "bold", family = font2, size = 13, color = "gray40", angle = 90, hjust = 1, vjust = 0.5),
+    axis.ticks.length.x = unit(-0.8, "cm"),
+    axis.ticks.x = element_line(color = "grey40", size = 1)
+    )
+
+ggsave(
+    ".github\\.vscode\\Trimestrais\\Percentual de participação anual do abate de fêmeas.png",
+    plot = part_abt_femeas,
+    #width = ,
+    #height = ,
+    dpi = 300
+    )
+```
