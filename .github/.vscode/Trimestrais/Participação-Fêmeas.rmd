@@ -208,7 +208,17 @@ percentual_abate_trimestral <- abt |>
   mutate(
     total_geral = sum(total_cabeca),
     percentual = (total_cabeca / total_geral) * 100
-  ) 
+  ) #|> dplyr::filter(sexo == "Fêmea") |> tail()
+
+# Groups:   ano, trimestre [6]
+#    ano trimestre         sexo  total_cabeca total_geral percentual
+#  <dbl> <chr>             <chr>        <dbl>       <dbl>      <dbl>
+#1  2023 1º trimestre 2023 Fêmea      3352142     7466521       44.9
+#2  2023 2º trimestre 2023 Fêmea      3731168     8478163       44.0
+#3  2023 3º trimestre 2023 Fêmea      3529741     8997920       39.2
+#4  2023 4º trimestre 2023 Fêmea      3588870     9159202       39.2
+#5  2024 1º trimestre 2024 Fêmea      4335154     9337938       46.4
+#6  2024 2º trimestre 2024 Fêmea      4508165     9959699       45.3
 
 # Adicionar fontes
 font <- "Josefin Sans"
