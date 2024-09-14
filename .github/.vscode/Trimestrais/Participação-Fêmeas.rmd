@@ -13,11 +13,12 @@ author script:
 date: "2024-09-05"
 output: html_document
 ---
-
+ Bibliiotecas
 ```{r}
 library(tidyverse)
 ```
 
+ Adicionar fontes
 ```{r}
 # Adicionar fontes
 font <- "Josefin Sans"
@@ -32,7 +33,7 @@ showtext::showtext_auto(enable = TRUE)
 ```
 
 
-Abate por categoria, BR
+ Base original: Abate por categoria, BR
 ```{r}
 base_original <- sidrar::get_sidra(
     api = "/t/1092/n1/all/v/284,285/p/all/c12716/115236/c18/55,56,111734,111735/c12529/118225") |>
@@ -40,6 +41,8 @@ base_original <- sidrar::get_sidra(
     dplyr::glimpse()
 ```
 
+
+ Base manipulada
 ```{r}
 abt <- base_original |>
     dplyr::select(
@@ -69,8 +72,6 @@ abt <- base_original |>
 
 
 Participação de Vacas e novilhas no abate total
-
-
 ```{r}
 # Criando a nova coluna para identificar machos e fêmeas
 abt <- abt |>
@@ -79,16 +80,19 @@ abt <- abt |>
       categoria %in% c("Bois", "Novilhos") ~ "Macho",
       categoria %in% c("Vacas", "Novilhas") ~ "Fêmea"
     ), .before = data_trimestre
-  ) 
+  )
+# abate total
+abt  |>
+    group_by(trimestre) |>
+    summarise(total = sum(cabeca)) |>
+    arrange(desc(total))
 
-
-
-# Calculando o total de cabeças por sexo e o percentual
-percentual_abate_trimestral_categorias <- abt |>
+abt1 <- abt |>
   #dplyr::filter(ano >= 2010) |>
   group_by(ano, trimestre, categoria, sexo) |>
   summarise(
-    total_cabeca = sum(cabeca)#,.groups = 'drop'
+    total_cabeca = sum(cabeca)
+    #,.groups = 'drop'
   ) |>
   group_by(ano, trimestre) |>
   mutate(
@@ -102,28 +106,10 @@ percentual_abate_trimestral_categorias <- abt |>
         "1º trimestre 20" = "1T ",
         "2º trimestre 20" = "2T ",
         "3º trimestre 20" = "3T ",
-        "4º trimestre 20" = "4T "
-    ))
-  ) 
+        "4º trimestre 20" = "4T "))
+    )
 
-
-# Criar uma nova coluna trimestre_ano combinando o trimestre e o ano
-#percentual_abate_trimestral_categorias <- percentual_abate_trimestral_categorias |>
-#  mutate(trimestre_ano = paste(trimestre, ano))  # Combina trimestre e ano
-
-# Definir os níveis da nova coluna com base na ordem cronológica correta
-#percentual_abate_trimestral_categorias <- percentual_abate_trimestral_categorias |>
-#  mutate(trimestre_ano = factor(trimestre_ano, 
-#                                levels = unique(paste(trimestre, ano))))
-
-
-# Ajustando a ordem dos níveis de 'categoria'
-percentual_abate_trimestral_categorias <- percentual_abate_trimestral_categorias |>
-  mutate(
-    categoria = factor(categoria, levels = c("Novilhas", "Vacas"))
-  )
-
-
+# Adicionar captions
 
 github_icon <- "&#xf09b"
 linkedin_icon <- "&#xf0e1"
@@ -137,11 +123,11 @@ instagram_username <- "italo.m.m"
 bg <- "white"
 txt_col <- "grey70"
 colors <- "gray40"
-title_text3 <- glue::glue("**Abate fêmeas:**")
-subtitle_text3 <- glue::glue("**Participação de vacas e novilhas frente ao total abatido por trimestre (1997 - 2024)**")
-caption_text3 <- glue::glue(
+title_text <- glue::glue("Percentual de Abate de Fêmeas:")
+subtitle_text <- glue::glue("Participação trimestral de vacas e novilhas sobre o total abatido")
+caption_text <- glue::glue(
   "**Dados:**  IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2024)]<br>",
-  "**Nota:** As linhas pontilhadas indicam o valor do último percentual de abate das categorias em relação à série.<br>",
+  #"**Nota:** Média do período: 37.9%<br>",
   "**Plot:** Ítalo Marques-Monteiro <br><br>",
   "<span style='font-family:\"Font Awesome 6 Brands\"; color: white;'>{github_icon};</span> 
   <span style='color: grey70'>{github_username}</span><br>",
@@ -153,27 +139,20 @@ caption_text3 <- glue::glue(
   <span style='color: grey70'>{instagram_username}</span>"
 )
 
-
 # Definindo as cores base
 cores_base <- c("#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600")
 # Gerando uma paleta com 28 cores
-pal <- colorRampPalette(cores_base)(2)
-#cor <- c("#ff7c43", "#ffa600")
-cor <- c("#665191", "#a05195")
+pal <- colorRampPalette(cores_base)(110)
 
-
-# Gerando o gráfico mde barras empilhadas com facet
-plot_percentual_abate_trimestral_categorias <- percentual_abate_trimestral_categorias |>
-  #dplyr::filter(categoria == "Novilhas") |> arrange(desc(percentual))
-  dplyr::filter(sexo == "Fêmea") |>  #arrange(desc(percentual))
-  ggplot(aes(x = trimestre, y = percentual, fill = categoria)) +  # Removido fill = categoria
-  ggchicklet::geom_chicklet(alpha = 1, color = "grey50", size = 0.8) +
-  geom_hline(yintercept = 14.5, color = "#fd001e", lty = 3) +
-  geom_hline(yintercept = 45.3, color = "#53c4f1", lty = 3) +
-  scale_y_continuous(labels = scales::label_percent(scale = 1), position = "right") +  # Eixo y no lado direito e com %
-  scale_fill_manual(values = c("#fd001e", "#53c4f1")) +
-  #scale_fill_manual(values = c("#fcaf45", "#f77737")) +
-  scale_x_discrete(
+plot_facet_femea <- abt1 |>
+  filter(sexo == "Fêmea") |> 
+  ggplot(aes(x = trimestre, y = percentual, fill = "skyblue")) +  # Usando 'categoria' como preenchimento
+  ggchicklet::geom_chicklet(fill = "grey70", color = "grey50", alpha = 0.7) +
+  guides(fill = "none") +
+  facet_wrap(~categoria) +
+  scale_y_continuous(breaks = seq(0, 45, 10), labels = scales::dollar_format(
+    prefix = "", suffix = "%")) +
+    scale_x_discrete(
     limits = c(
         "1T 97", "2T 97", "3T 97", "4T 97",
         "1T 98", "2T 98", "3T 98", "4T 98",
@@ -203,46 +182,42 @@ plot_percentual_abate_trimestral_categorias <- percentual_abate_trimestral_categ
         "1T 22", "2T 22", "3T 22", "4T 22",
         "1T 23", "2T 23", "3T 23", "4T 23",
         "1T 24", "2T 24"
-    )
-) +
-  labs(
-    title = title_text3,
-    subtitle = subtitle_text3,
-    caption = caption_text3,
-    fill = ""
+        )
+    ) +
+    labs(
+    title = title_text,
+    subtitle = subtitle_text,
+    caption = caption_text
   ) +
   theme(
-    plot.title = ggtext::element_markdown(face = "italic", family = font3, size = 40, color = "gray80", hjust = 0.5),
-    plot.subtitle = ggtext::element_markdown(face = "italic", family = font2, size = 18, color = "gray70", hjust = 0.5),
+    plot.title = ggtext::element_markdown(face = "bold", family = font3, size = 40, color = "gray80", hjust = 0.5),
+    plot.subtitle = element_text(face = "italic", family = font2, size = 18, color = "gray70", hjust = 0.5),
     plot.caption = ggtext::element_markdown(face = "bold", family = font, size = 9, color = txt_col, hjust = 0, margin = margin(10, 20, 20, 20),  lineheight = 1.2),
     panel.background = element_rect(fill = "grey25", color = "grey25"),
     panel.grid = element_line(color = "grey25"),
-    panel.grid.major.y = element_line(color = "grey25", size = 0.5, linetype = 1),
-    panel.grid.minor.y = element_line(color = "grey25", size = 0.5, linetype = 1),
+    panel.grid.major.y = element_line(color = "grey40", size = 0.5, linetype = 1),
+    panel.grid.minor.y = element_line(color = "grey35", size = 0.5, linetype = 3),
     plot.background = element_rect(fill = "grey25"),
-    legend.position = "top",
-    legend.background = element_blank(),
-    legend.key = element_rect(fill = "grey25", color = "grey25"),
-    legend.text = element_text(face = "bold", color = "grey60", size = 14),
-    legend.title = element_text(face = "bold", color = "grey60", size = 14),
+    legend.position = "none",
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),
-    axis.text.y = ggtext::element_markdown(face = "bold", family = font2, size = 8, color = "gray50"),
-    axis.text.x = ggtext::element_markdown(face = "bold", family = font2, size = 8, color = "gray50", angle = 90, hjust = 1, vjust = 0.5),
+    axis.text.y = ggtext::element_markdown(face = "bold", family = font2, size = 10, color = "gray40"),
+    axis.text.x = ggtext::element_markdown(face = "bold", family = font2, size = 4, color = "gray40", angle = 90, hjust = 1, vjust = 0.5),
     axis.ticks.length.x = unit(-0.8, "cm"),
-    axis.ticks.x = element_line(color = "grey50", size = 0.8)
+    axis.ticks.x = element_line(color = "grey40", size = 0.3),
+    strip.text = ggtext::element_markdown(color = "grey20", size = 14, face = "bold", family = font)
   )
 
-ggsave(".github\\.vscode\\Trimestrais\\Percentual de participação trimestral - Vacas e Novilhas.png",
-       plot_percentual_abate_trimestral_categorias,
-       width = 17.1,
-       height = 10.2,
-       #units = "cm",
-       dpi = 300)
+ggsave(
+    ".github\\.vscode\\Trimestrais\\Percentual de participação trimestral - Vacas e Novilhas.png",
+    plot = plot_facet_femea,
+    width = 17.1,
+    height = 10.2,
+    dpi = 300)
 ```
 
- Participação anual de fêmeas no abate total 
 
+ Participação anual de fêmeas no abate total 
 ```{r}
 # Criando a nova coluna para identificar machos e fêmeas
 abt <- abt |>
@@ -265,7 +240,7 @@ percentual_abate_anual <- abt |>
   mutate(
     total_geral = sum(total_cabeca),
     percentual = (total_cabeca / total_geral) * 100
-  ) 
+  )  |> tail()
 
 # Adicionar fontes
 font <- "Josefin Sans"
@@ -372,7 +347,6 @@ ggsave(
 
 
 Participação de fêmeas no abate Trimestral
-
 ```{r}
 # Criando a nova coluna para identificar machos e fêmeas
 abt <- abt |>
