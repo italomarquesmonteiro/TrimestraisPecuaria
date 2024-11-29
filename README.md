@@ -34,10 +34,10 @@ Vocês podem ter acesso às bases públicas do IBGE acessando o ambiente [Sidra]
 > [!NOTE]
 > Os dados dos 4º trimestres do ano são preliminares até a divulgação dos dados do 1° trimestre do ano seguinte.
 
-🔎 𝕆 𝕞𝕒𝕚𝕠𝕣 “𝕕𝕖𝕤𝕔𝕒𝕣𝕥𝕖” 𝕕𝕖 𝕟𝕠𝕧𝕚𝕝𝕙𝕒𝕤
+## 🔎 𝕆 𝕞𝕒𝕚𝕠𝕣 “𝕕𝕖𝕤𝕔𝕒𝕣𝕥𝕖” 𝕕𝕖 𝕟𝕠𝕧𝕚𝕝𝕙𝕒𝕤
 
  Ao analisar os dados de abate do IBGE, observa-se que 1,4 milhão de novilhas foram guiadas ao abate no 2º trimestre de 2024, o maior número absoluto regis-trado para essa categoria. Em termos percentuais, as novilhas representaram 14,5% do total de bovinos abatidos no período, configurando o maior percentual da série histórica para essa categoria.
-O percentual de abate de fêmeas segue aquecido, totalizando 45,3% no 2º trimes-tre, resultado da soma da participação de vacas (30,8%) e novilhas (14,5%). Ao calcular o percentual anual de abates de fêmeas (Figura 1), os dois primeiros tri-mestres de 2024 já representam 45,8% dessa categoria. Historicamente, esse percentual tende a diminuir nos dois últimos trimestres, seguindo o padrão de redução no volume de abates de fêmeas ao longo do ano.
+O percentual de abate de fêmeas segue aquecido, totalizando 45,3% no 2º trimes-tre, resultado da soma da participação de vacas (30,8%) e novilhas (14,5%). Ao calcular o percentual anual de abates de fêmeas (Figura 1), os dois primeiros trimestres de 2024 já representam 45,8% dessa categoria. Historicamente, esse percentual tende a diminuir nos dois últimos trimestres, seguindo o padrão de redução no volume de abates de fêmeas ao longo do ano.
 
 <img style="width700:px; height:px;" src=".github\.vscode\Trimestrais\Percentual de participação anual do abate de fêmeas.png" alt="Evolução Abate">
 Outro destaque interessante está no percentual de novilhos sobre o abate total, 3,56%, o menor registro na composição de abate de um trimestre. Isso pode ser reflexo uma menor oferta de bezerros desmamados, tendo em vista, os grandes volumes de abate de fêmeas em idade reprodutivas (+ 24 meses) nas últimas temporadas.
@@ -45,7 +45,8 @@ Outro destaque interessante está no percentual de novilhos sobre o abate total,
 <img style="width700:px; height:px;" src=".github\.vscode\Trimestrais\Percentual de participação trimestral - Facet-Categorias.png" alt="Evolução Abate">
 
 ❗ Outros destaques:
-No segundo trimestre de 2024, o total de abates bovinos no Brasil atingiu 9,9 mi-lhões de cabeças (cab.), a composição desse valor por categoria é a seguinte or-dem decrescente:
+No segundo trimestre de 2024, o total de abates bovinos no Brasil atingiu 9,9 milhões de cabeças (cab.), a composição desse valor por categoria é a seguinte or-dem decrescente:
+
 - 𝘉𝘰𝘪𝘴 ➡ 5.096.543 𝘮𝘪𝘭𝘩õ𝘦𝘴 𝘥𝘦 𝘤𝘢𝘣. 
 - 𝘝𝘢𝘤𝘢𝘴 ➡3.066.370 𝘮𝘪𝘭𝘩õ𝘦𝘴 𝘤𝘢𝘣. 
 - 𝘕𝘰𝘷𝘪𝘭𝘩𝘢𝘴 ➡ 1.441.795 𝘮𝘪𝘭𝘩õ𝘦𝘴 𝘤𝘢𝘣.
