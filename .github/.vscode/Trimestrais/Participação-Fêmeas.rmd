@@ -139,7 +139,7 @@ abt1 <- abt |>
         "1T 21", "2T 21", "3T 21", "4T 21",
         "1T 22", "2T 22", "3T 22", "4T 22",
         "1T 23", "2T 23", "3T 23", "4T 23",
-        "1T 24", "2T 24"
+        "1T 24", "2T 24", "3T 24"
         )
     )
 
@@ -215,7 +215,7 @@ plot_facet_femea <- abt1 |>
         "1T 21", "2T 21", "3T 21", "4T 21",
         "1T 22", "2T 22", "3T 22", "4T 22",
         "1T 23", "2T 23", "3T 23", "4T 23",
-        "1T 24", "2T 24"
+        "1T 24", "2T 24", "3T 24"
         )
     ) +
     labs(
@@ -274,7 +274,8 @@ percentual_abate_anual <- abt |>
   mutate(
     total_geral = sum(total_cabeca),
     percentual = (total_cabeca / total_geral) * 100
-  )  |> tail()
+  )  
+percentual_abate_anual |> tail()
 
 # Adicionar fontes
 font <- "Josefin Sans"
@@ -300,7 +301,7 @@ bg <- "white"
 txt_col <- "grey70"
 colors <- "gray40"
 title_text <- glue::glue("Percentual de Abate de Fêmeas:")
-subtitle_text <- glue::glue("Participação anual de fêmeas sobre o total abatido até o 2º trimestre de 2024")
+subtitle_text <- glue::glue("Participação anual de fêmeas sobre o total abatido, considerando o ano de 2024 até o 3º trimestre.")
 caption_text <- glue::glue(
   "**Dados:**  IBGE [Diretoria de Pesquisas Agropecuárias, Coordenação de Agropecuária, Pesquisa Trimestral do Abate de Animais(2024)]<br>",
   "**Nota:** Média do período: 37.9%<br>",
